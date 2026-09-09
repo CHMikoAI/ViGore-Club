@@ -3,14 +3,12 @@ import { InstagramIcon, LinkedinIcon } from "./icons";
 import { legalLinks, site, socials } from "@/content/site";
 
 /**
- * Der Footer der zentrierten Fassung: alles auf der Mittelachse gestapelt –
- * Kontakt, Social, Rechtliches, Copyright – und darunter der grosse
- * ViGORE-Schriftzug.
+ * Der Footer der bisherigen Website, unverändert im Aufbau: Kontakt und
+ * Rechtliches links, Social und Copyright rechts – und darunter der grosse
+ * ViGORE-Schriftzug, der unten aus dem Bild läuft.
  *
- * Der Schriftzug ist genau so breit wie der Inhalt: .wordmark-band misst als
- * Container seine eigene Breite, .wordmark rechnet daraus die Schriftgrösse
- * (siehe globals.css). Er steht im normalen Fluss und bringt seine Höhe selbst
- * mit – der Footer muss keinen Platz für ihn freihalten.
+ * Der Schriftzug ist in vw bemessen und wird vom Footer beschnitten, damit er
+ * auf jedem Gerät gleich sitzt. `pb-[28vw]` hält den Platz dafür frei.
  */
 
 const ICONS = {
@@ -21,65 +19,84 @@ const ICONS = {
 export default function SiteFooter() {
   return (
     <footer className="relative overflow-hidden border-t border-line bg-cream">
-      <div className="mx-auto max-w-[1400px] px-5 pt-14 text-center md:px-8">
-        <div className="space-y-1">
-          <a
-            href={`mailto:${site.email}`}
-            className="link-quiet inline-block text-brass"
-          >
-            {site.email}
-          </a>
-          <p className="text-sm text-muted">{site.location}</p>
-        </div>
-
-        <div className="mt-8 flex items-center justify-center gap-3">
-          {socials.map((social) => {
-            const Icon = ICONS[social.name];
-
-            // Solange kein Kanal hinterlegt ist, steht das Icon da, ist aber
-            // kein Link – ein Link ins Leere ist schlimmer als keiner.
-            if (!social.href) {
-              return (
-                <span
-                  key={social.name}
-                  role="img"
-                  aria-label={`${social.label} – folgt`}
-                  title={`${social.label} – folgt`}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-espresso/35 text-cream"
-                >
-                  <Icon className="h-[1.15rem] w-[1.15rem]" />
-                </span>
-              );
-            }
-
-            return (
+      <div className="mx-auto max-w-[1400px] px-5 pt-10 md:px-8">
+        <div className="flex flex-wrap items-start justify-between gap-10 text-sm">
+          <div className="space-y-6">
+            <div className="space-y-1">
               <a
-                key={social.name}
-                href={social.href}
-                target="_blank"
-                rel="noreferrer noopener"
-                aria-label={social.label}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-espresso text-cream transition-colors duration-200 hover:bg-brass"
+                href={`mailto:${site.email}`}
+                className="link-quiet block text-brass"
               >
-                <Icon className="h-[1.15rem] w-[1.15rem]" />
+                {site.email}
               </a>
-            );
-          })}
-        </div>
+              <p className="text-muted">{site.location}</p>
+            </div>
 
-        <div className="mt-8 flex items-center justify-center gap-5 text-sm">
-          {legalLinks.map((link) => (
-            <Link key={link.href} href={link.href} className="link-quiet font-medium">
-              {link.label}
-            </Link>
-          ))}
-        </div>
+            <div className="space-y-2">
+              {legalLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="link-quiet block font-medium"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
 
-        <p className="mt-6 text-xs text-muted">
-          © {new Date().getFullYear()} {site.name}. Alle Rechte vorbehalten.
-        </p>
+          <div className="ml-auto flex flex-col items-end gap-6">
+            <div className="flex items-center gap-3">
+              {socials.map((social) => {
+                const Icon = ICONS[social.name];
+
+                // Solange kein Kanal hinterlegt ist, steht das Icon da, ist
+                // aber kein Link – ein Link ins Leere ist schlimmer als keiner.
+                if (!social.href) {
+                  return (
+                    <span
+                      key={social.name}
+                      role="img"
+                      aria-label={`${social.label} – folgt`}
+                      title={`${social.label} – folgt`}
+                      className="flex h-10 w-10 items-center justify-center rounded-full bg-espresso/35 text-cream"
+                    >
+                      <Icon className="h-[1.15rem] w-[1.15rem]" aria-hidden />
+                    </span>
+                  );
+                }
+
+                return (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    aria-label={social.label}
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-espresso text-cream transition-colors duration-200 hover:bg-brass"
+                  >
+                    <Icon className="h-[1.15rem] w-[1.15rem]" aria-hidden />
+                  </a>
+                );
+              })}
+            </div>
+
+            <p className="w-full text-right text-xs text-muted">
+              © {new Date().getFullYear()} {site.name}. Alle Rechte vorbehalten.
+            </p>
+          </div>
+        </div>
       </div>
 
+      {/*
+        Der Schriftzug sitzt in derselben Spalte wie der Inhalt darüber – er
+        ist also genau so breit wie die Seite, nicht wie das Fenster, und
+        schliesst links und rechts bündig mit dem Text ab.
+
+        .wordmark-band misst dazu seine eigene Breite; .wordmark rechnet daraus
+        die Schriftgrösse, die das Wort exakt füllen lässt (siehe globals.css).
+        Er steht im normalen Fluss, bringt seine Höhe also selbst mit.
+      */}
       <div className="mx-auto max-w-[1400px] px-5 pt-10 md:px-8">
         <div className="wordmark-band">
           <p

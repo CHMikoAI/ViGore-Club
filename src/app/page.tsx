@@ -11,8 +11,10 @@ import { approach, quote, values } from "@/content/club";
 import { projects } from "@/content/projects";
 
 /**
- * Die zentrierte Fassung. Alles sitzt auf der Mittelachse – Header, Hero,
- * jeder Abschnitt, jede Karte, der Footer.
+ * Die zentrierte Fassung. Header, Hero, jeder Abschnitt und jede Karte sitzen
+ * auf der Mittelachse. Einzige Ausnahme ist der Footer: dort geben die zwei
+ * Blöcke links und rechts dem Seitenfuss eine Breite, die ein mittiger Stapel
+ * nicht hätte.
  *
  * Damit das nicht bloss „zentrierter Text" ist, sondern ein Aufbau, hängen
  * drei Dinge daran:
@@ -177,26 +179,16 @@ export default function HomePage() {
           Höhe. Der Übergang zum hellen Footer schliesst die Seite ab. */}
       <Section band="espresso">
         <Container>
-          <div className="mx-auto max-w-3xl text-center">
-            <Reveal>
-              <h2 className="display-2 text-cream">
-                Bereit, Verantwortung zu übernehmen?
-              </h2>
-            </Reveal>
-            <Reveal delay={120}>
-              <p className="mx-auto mt-6 max-w-2xl text-lg text-cream/80">
-                Wenn du dich in unseren Werten wiedererkennst und bereit bist,
-                dich aktiv einzubringen, freuen wir uns auf deine Bewerbung.
-              </p>
-            </Reveal>
-            <Reveal delay={240}>
-              <div className="mt-11 flex justify-center">
-                <OutlineButton href="/kontakt" tone="light">
-                  Mitglied werden
-                </OutlineButton>
-              </div>
-            </Reveal>
-          </div>
+          <SectionHeader
+            label="Mitmachen"
+            heading="Bereit, Verantwortung zu übernehmen?"
+            lede="Wenn du dich in unseren Werten wiedererkennst und bereit bist, dich aktiv einzubringen, freuen wir uns auf deine Bewerbung."
+            action={
+              <OutlineButton href="/kontakt" tone="light">
+                Mitglied werden
+              </OutlineButton>
+            }
+          />
         </Container>
       </Section>
     </>

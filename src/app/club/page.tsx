@@ -162,25 +162,17 @@ export default function ClubPage() {
       {/* ── Mitmachen · Ansprache ─────────────────────────────────────────── */}
       <Section band="espresso">
         <Container>
-          <div className="mx-auto max-w-3xl text-center">
-            <Reveal>
-              <h2 className="display-2 text-cream">Klingt nach dir?</h2>
-            </Reveal>
-            <Reveal delay={120}>
-              <p className="mx-auto mt-6 max-w-2xl text-lg text-cream/80">
-                Dann schreib uns. Kein Formular-Marathon – ein paar Zeilen
-                reichen. Den Rest klären wir im Gespräch, und zwar in beide
-                Richtungen: es muss auch für dich passen.
-              </p>
-            </Reveal>
-            <Reveal delay={240}>
-              <div className="mt-11 flex justify-center">
-                <OutlineButton href="/kontakt" tone="light">
-                  Mitglied werden
-                </OutlineButton>
-              </div>
-            </Reveal>
-          </div>
+          <SectionHeader
+            number="05"
+            label="Mitmachen"
+            heading="Klingt nach dir?"
+            lede="Dann schreib uns. Kein Formular-Marathon – ein paar Zeilen reichen. Den Rest klären wir im Gespräch, und zwar in beide Richtungen: es muss auch für dich passen."
+            action={
+              <OutlineButton href="/kontakt" tone="light">
+                Mitglied werden
+              </OutlineButton>
+            }
+          />
         </Container>
       </Section>
     </>
