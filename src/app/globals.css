@@ -222,6 +222,39 @@ body {
   line-height: 0.76;
 }
 
+/* ── Ornament der zentrierten Fassung ──────────────────────────────────────
+   Zwei kurze Linien flankieren die Abschnittsmarke. Das ist bewusst dem Logo
+   abgeschaut, das „Club“ genauso zwischen zwei Striche setzt – so bekommt
+   die zentrierte Fassung ein Motiv, das aus der Marke selbst kommt.
+
+   Die Linien wachsen beim Erscheinen nach aussen, vom Wort weg. Deshalb sitzt
+   der Ursprung jeweils auf der dem Wort zugewandten Seite. */
+.ornament {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.125rem;
+}
+
+.ornament-rule {
+  height: 1px;
+  width: clamp(1.75rem, 6vw, 3.5rem);
+  flex: none;
+  background-color: var(--color-accent);
+  opacity: 0.55;
+  transform: scaleX(0);
+  transition: transform 800ms var(--ease-club);
+}
+.ornament-rule--left {
+  transform-origin: right;
+}
+.ornament-rule--right {
+  transform-origin: left;
+}
+.is-visible .ornament-rule {
+  transform: scaleX(1);
+}
+
 /* Das Kapitälchen-Label über jedem Abschnitt – „01 — Projekte".
    Dieses eine Detail lässt die Seite massgeschneidert wirken. */
 .eyebrow {

@@ -16,8 +16,8 @@ export default function ImpressumPage() {
   return (
     <Section band="cream" className="!pt-16 md:!pt-24">
       <Container>
-        <div className="max-w-2xl">
-          <h1 className="display-2">Impressum</h1>
+        <div className="mx-auto max-w-2xl">
+          <h1 className="display-2 text-center">Impressum</h1>
 
           <div className="mt-12 space-y-10 text-[1.0625rem] leading-relaxed">
             <div>

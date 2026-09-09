@@ -21,43 +21,41 @@ export default function ContactPage() {
           lede="Ob dich der Club interessiert, du eine Frage zu einem Projekt hast oder wissen willst, was hier eigentlich läuft: melde dich. Ein paar Zeilen reichen."
         />
 
-        <div className="mt-14 grid gap-14 lg:grid-cols-2 lg:gap-24">
-          <div>
-            <Reveal delay={180}>
-              <div className="space-y-6 border-t border-line pt-8">
-                <div>
-                  <p className="eyebrow">Direkt</p>
-                  <a
-                    href={`mailto:${site.email}`}
-                    className="link-quiet mt-2 inline-block text-[1.0625rem]"
-                  >
-                    {site.email}
-                  </a>
-                </div>
-
-                <div>
-                  <p className="eyebrow">Wo wir sind</p>
-                  <p className="mt-2 text-[1.0625rem] text-muted">
-                    {site.location}
-                  </p>
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={240}>
-              <p className="mt-10 max-w-lg text-sm leading-relaxed text-muted">
-                Wir sind wenige und lesen alles selbst. Es kann ein paar Tage
-                dauern – aber es kommt eine Antwort.
-              </p>
-            </Reveal>
-          </div>
-
-          <Reveal delay={100}>
-            <div className="border border-line bg-surface p-6 md:p-9">
-              <InquiryForm topic="club" />
+        {/* Direkter Draht und Standort als mittige Reihe über dem Formular –
+            statt einer Spalte daneben, die die Achse gebrochen hätte. */}
+        <Reveal delay={220}>
+          <div className="mx-auto mt-12 flex max-w-2xl flex-wrap justify-center gap-x-16 gap-y-8 border-y border-line py-8 text-center">
+            <div>
+              <p className="eyebrow">Direkt</p>
+              <a
+                href={`mailto:${site.email}`}
+                className="link-quiet mt-2 inline-block text-[1.0625rem]"
+              >
+                {site.email}
+              </a>
             </div>
-          </Reveal>
-        </div>
+            <div>
+              <p className="eyebrow">Wo wir sind</p>
+              <p className="mt-2 text-[1.0625rem] text-muted">{site.location}</p>
+            </div>
+          </div>
+        </Reveal>
+
+        {/* Das Formular bleibt linksbündig gesetzt: Beschriftungen über Feldern
+            liest man am Rand, nicht auf einer Achse. Nur die Spalte selbst
+            sitzt mittig. */}
+        <Reveal delay={280}>
+          <div className="mx-auto mt-14 max-w-xl border border-line bg-surface p-6 text-left md:p-9">
+            <InquiryForm topic="club" />
+          </div>
+        </Reveal>
+
+        <Reveal delay={340}>
+          <p className="mx-auto mt-10 max-w-md text-center text-sm leading-relaxed text-muted">
+            Wir sind wenige und lesen alles selbst. Es kann ein paar Tage dauern
+            – aber es kommt eine Antwort.
+          </p>
+        </Reveal>
       </Container>
     </Section>
   );

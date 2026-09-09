@@ -26,10 +26,10 @@ export default function DatenschutzPage() {
   return (
     <Section band="cream" className="!pt-16 md:!pt-24">
       <Container>
-        <div className="max-w-2xl">
-          <h1 className="display-2">Datenschutzbestimmungen</h1>
+        <div className="mx-auto max-w-2xl">
+          <h1 className="display-2 text-center">Datenschutzbestimmungen</h1>
 
-          <p className="lede mt-8">
+          <p className="lede mt-8 text-center">
             Der Schutz deiner Personendaten ist uns ein wichtiges Anliegen. In
             dieser Datenschutzerklärung informieren wir dich darüber, welche
             Personendaten wir auf dieser Website bearbeiten und zu welchem

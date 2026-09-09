@@ -39,12 +39,15 @@ export default function ClubPage() {
         />
       </Container>
 
-      {/* ── Warum es uns gibt ───────────────────────────────────────────── */}
+      {/* ── Warum es uns gibt ─────────────────────────────────────────────
+          Fliesstext in schmaler, mittiger Spalte. Zentrierte Absätze wären
+          hier falsch – mehrzeiliger Fliesstext bleibt linksbündig gesetzt,
+          nur die Spalte selbst sitzt auf der Achse. */}
       <Section band="cream">
         <Container>
           <SectionHeader number="01" label="Warum es uns gibt" />
 
-          <div className="prose-club mt-8 max-w-2xl text-[1.0625rem] leading-relaxed">
+          <div className="prose-club mx-auto mt-10 max-w-2xl text-[1.0625rem] leading-relaxed">
             <Reveal>
               <p>
                 Die meisten Männer haben Kollegen, mit denen sie über alles
@@ -72,7 +75,9 @@ export default function ClubPage() {
         </Container>
       </Section>
 
-      {/* ── Rhythmus ────────────────────────────────────────────────────── */}
+      {/* ── Rhythmus ──────────────────────────────────────────────────────
+          Gestapelt auf der Achse statt zweispaltig: die Zeitangabe steht über
+          dem Titel, nicht daneben. */}
       <Section band="dark">
         <Container>
           <SectionHeader
@@ -81,19 +86,17 @@ export default function ClubPage() {
             heading="Wie ein Monat aussieht"
           />
 
-          <div className="mt-12 max-w-4xl">
+          <div className="mx-auto mt-14 max-w-2xl">
             {rhythm.map((entry, i) => (
               <Reveal key={entry.what} delay={i * 80}>
-                <div className="grid gap-2 border-b border-line py-7 sm:grid-cols-[minmax(0,12rem)_1fr] sm:gap-8">
+                <div className="border-b border-line py-8 text-center last:border-0">
                   <span className="text-[0.6875rem] uppercase tracking-[0.16em] text-accent">
                     {entry.when}
                   </span>
-                  <div>
-                    <h3 className="display-4">{entry.what}</h3>
-                    <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted">
-                      {entry.body}
-                    </p>
-                  </div>
+                  <h3 className="display-4 mt-2">{entry.what}</h3>
+                  <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-muted">
+                    {entry.body}
+                  </p>
                 </div>
               </Reveal>
             ))}
@@ -110,12 +113,11 @@ export default function ClubPage() {
             heading="Worauf wir uns verlassen"
           />
 
-          <div className="mt-14 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mx-auto mt-16 grid max-w-5xl gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {values.map((value, i) => (
-              <Reveal key={value.title} delay={i * 60}>
-                <div className="hairline mb-4" />
+              <Reveal key={value.title} delay={i * 60} className="text-center">
                 <h3 className="display-4">{value.title}</h3>
-                <p className="mt-2 max-w-sm text-sm leading-relaxed text-muted">
+                <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-muted">
                   {value.body}
                 </p>
               </Reveal>
@@ -133,12 +135,11 @@ export default function ClubPage() {
             heading="Was wir nicht sind"
           />
 
-          <div className="mt-12 max-w-2xl">
-            <ul>
+          <div className="mx-auto mt-14 max-w-2xl">
+            <ul className="text-center">
               {notThis.map((item, i) => (
                 <Reveal key={item} delay={i * 70}>
-                  <li className="flex items-center gap-4 border-b border-line py-5">
-                    <span aria-hidden className="h-px w-6 shrink-0 bg-accent/50" />
+                  <li className="border-b border-line py-6 last:border-0">
                     <span className="display-4">{item}</span>
                   </li>
                 </Reveal>
@@ -146,7 +147,7 @@ export default function ClubPage() {
             </ul>
 
             <Reveal delay={220}>
-              <p className="mt-8 text-[1.0625rem] leading-relaxed text-muted">
+              <p className="mx-auto mt-10 text-[1.0625rem] leading-relaxed text-muted">
                 Wer eine Therapie oder professionelle Begleitung braucht, ist
                 bei Fachleuten besser aufgehoben. Das ist keine Schwäche,
                 sondern die richtige Entscheidung. Wir sind das, was daneben
@@ -158,24 +159,22 @@ export default function ClubPage() {
         </Container>
       </Section>
 
-      {/* ── Mitmachen · Ansprache ─────────────────────────────────────────
-          Espresso wie der Hero der Startseite – überall dort, wo „Mitglied
-          werden" steht, sieht die Seite gleich aus. */}
+      {/* ── Mitmachen · Ansprache ─────────────────────────────────────────── */}
       <Section band="espresso">
         <Container>
-          <div className="max-w-3xl">
+          <div className="mx-auto max-w-3xl text-center">
             <Reveal>
               <h2 className="display-2 text-cream">Klingt nach dir?</h2>
             </Reveal>
             <Reveal delay={120}>
-              <p className="mt-6 max-w-2xl text-lg text-cream/80">
+              <p className="mx-auto mt-6 max-w-2xl text-lg text-cream/80">
                 Dann schreib uns. Kein Formular-Marathon – ein paar Zeilen
                 reichen. Den Rest klären wir im Gespräch, und zwar in beide
                 Richtungen: es muss auch für dich passen.
               </p>
             </Reveal>
             <Reveal delay={240}>
-              <div className="mt-10">
+              <div className="mt-11 flex justify-center">
                 <OutlineButton href="/kontakt" tone="light">
                   Mitglied werden
                 </OutlineButton>

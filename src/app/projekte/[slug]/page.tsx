@@ -37,36 +37,35 @@ export default async function ProjectPage({ params }: Params) {
 
   return (
     <>
-      <header className="bg-cream pb-12 pt-16 md:pt-24">
+      <header className="bg-cream pb-12 pt-16 text-center md:pt-24">
         <Container>
           <Reveal>
-            <ArrowLink href="/projekte">Alle Projekte</ArrowLink>
-          </Reveal>
-
-          {/* Gleicher Rhythmus wie SectionHeader: Haarlinie, Marke,
-              Überschrift. Die Statusmarke steht hier an der Stelle, an der
-              sonst „01 — Projekte" steht. */}
-          <Reveal>
-            <div className="hairline mt-8" />
-          </Reveal>
-
-          <Reveal delay={60}>
-            <div className="mt-6">
-              <StatusChip status={project.status} />
+            <div className="flex justify-center">
+              <ArrowLink href="/projekte">Alle Projekte</ArrowLink>
             </div>
           </Reveal>
 
-          <Reveal delay={120}>
-            <h1 className="display-2 mt-5 max-w-3xl">{project.title}</h1>
+          {/* Die Statusmarke steht zwischen den Ornamentlinien – an derselben
+              Stelle, an der sonst die Abschnittsmarke sitzt. */}
+          <Reveal delay={80}>
+            <div className="ornament mt-8">
+              <span aria-hidden className="ornament-rule ornament-rule--left" />
+              <StatusChip status={project.status} />
+              <span aria-hidden className="ornament-rule ornament-rule--right" />
+            </div>
           </Reveal>
 
-          <Reveal delay={180}>
+          <Reveal delay={140}>
+            <h1 className="display-2 mx-auto mt-6 max-w-3xl">{project.title}</h1>
+          </Reveal>
+
+          <Reveal delay={200}>
             <p className="mt-3 text-lg text-accent">{project.tagline}</p>
           </Reveal>
 
           {project.intro ? (
-            <Reveal delay={240}>
-              <p className="lede mt-8 max-w-2xl">{project.intro}</p>
+            <Reveal delay={260}>
+              <p className="lede mx-auto mt-8 max-w-2xl">{project.intro}</p>
             </Reveal>
           ) : null}
         </Container>
@@ -82,49 +81,47 @@ export default async function ProjectPage({ params }: Params) {
         />
       </Container>
 
-      {/* ── Text und Fakten ─────────────────────────────────────────────── */}
-      <Section band="cream">
+      {/* ── Fakten ──────────────────────────────────────────────────────────
+          In der zentrierten Fassung keine Randspalte, sondern eine mittige
+          Reihe unter dem Kopfbild – eine Spalte am Rand hätte die Achse
+          gebrochen. */}
+      {project.facts.length > 0 ? (
         <Container>
-          <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,17rem)] lg:gap-20">
-            <div className="max-w-2xl">
-              {project.sections.map((section, i) => (
-                <div key={section.heading} className={i > 0 ? "mt-14" : ""}>
-                  <Reveal>
-                    <div className="hairline mb-5" />
-                    <h2 className="display-3">{section.heading}</h2>
-                  </Reveal>
-                  <div className="prose-club mt-5 text-[1.0625rem] leading-relaxed">
-                    {section.body.map((paragraph, j) => (
-                      <Reveal key={j} delay={j * 60}>
-                        <p>{paragraph}</p>
-                      </Reveal>
-                    ))}
-                  </div>
+          <Reveal>
+            <dl className="mx-auto mt-14 flex max-w-4xl flex-wrap justify-center gap-x-14 gap-y-8 border-y border-line py-8 text-center">
+              {project.facts.map((fact) => (
+                <div key={fact.label}>
+                  <dt className="text-[0.6875rem] uppercase tracking-[0.16em] text-muted">
+                    {fact.label}
+                  </dt>
+                  <dd className="mt-1 text-[15px]">{fact.value}</dd>
                 </div>
               ))}
-            </div>
+            </dl>
+          </Reveal>
+        </Container>
+      ) : null}
 
-            {project.facts.length > 0 ? (
-              <aside className="lg:pt-2">
+      {/* ── Text ────────────────────────────────────────────────────────────
+          Überschriften auf der Achse, Fliesstext linksbündig in schmaler
+          Spalte – zentrierte Absätze wären über mehrere Zeilen unlesbar. */}
+      <Section band="cream">
+        <Container>
+          <div className="mx-auto max-w-2xl">
+            {project.sections.map((section, i) => (
+              <div key={section.heading} className={i > 0 ? "mt-16" : ""}>
                 <Reveal>
-                  <div className="hairline mb-5" />
-                  <p className="eyebrow">Auf einen Blick</p>
-                  <dl className="mt-6 space-y-4">
-                    {project.facts.map((fact) => (
-                      <div
-                        key={fact.label}
-                        className="border-b border-line pb-4 last:border-0"
-                      >
-                        <dt className="text-[0.6875rem] uppercase tracking-[0.16em] text-muted">
-                          {fact.label}
-                        </dt>
-                        <dd className="mt-1 text-[15px]">{fact.value}</dd>
-                      </div>
-                    ))}
-                  </dl>
+                  <h2 className="display-3 text-center">{section.heading}</h2>
                 </Reveal>
-              </aside>
-            ) : null}
+                <div className="prose-club mt-6 text-[1.0625rem] leading-relaxed">
+                  {section.body.map((paragraph, j) => (
+                    <Reveal key={j} delay={j * 60}>
+                      <p>{paragraph}</p>
+                    </Reveal>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </Container>
       </Section>
@@ -155,50 +152,48 @@ export default async function ProjectPage({ params }: Params) {
       {project.slug === "most" ? (
         <Section band="dark">
           <Container>
-            <div className="grid gap-12 lg:grid-cols-2 lg:gap-20">
-              <SectionHeader
-                label="Vormerken"
-                heading="Sag Bescheid, wenn du welchen willst."
-                lede="Wir melden uns, sobald der Most bereitsteht – mit Preis und allem, was du wissen musst. Unverbindlich, keine Vorauszahlung, kein Newsletter."
-              />
+            <SectionHeader
+              label="Vormerken"
+              heading="Sag Bescheid, wenn du welchen willst."
+              lede="Wir melden uns, sobald der Most bereitsteht – mit Preis und allem, was du wissen musst. Unverbindlich, keine Vorauszahlung, kein Newsletter."
+            />
 
-              <Reveal delay={100}>
+            {/* Das Formular selbst bleibt linksbündig: Beschriftungen über
+                Feldern liest man am Rand, nicht auf einer Achse. */}
+            <Reveal delay={200}>
+              <div className="mx-auto mt-12 max-w-xl text-left">
                 <InquiryForm topic="most" />
-              </Reveal>
-            </div>
+              </div>
+            </Reveal>
           </Container>
         </Section>
       ) : null}
 
       {/* ── Was seither passiert ist ─────────────────────────────────────
-          Das frühere Journal, jetzt beim Projekt. Neueste zuerst, mit einer
-          durchgehenden Linie links als Zeitstrahl. */}
+          Das frühere Journal, jetzt beim Projekt. Neueste zuerst. Statt des
+          Zeitstrahls am linken Rand trennt hier eine Linie auf der Achse. */}
       {updates.length > 0 ? (
         <Section band="cream">
           <Container>
             <SectionHeader label="Was seither passiert ist" />
 
-            <div className="mt-12 max-w-3xl">
+            <div className="mx-auto mt-14 max-w-2xl">
               {updates.map((update, i) => (
                 <article
                   key={`${update.date}-${update.title}`}
-                  className="relative border-l border-line pb-12 pl-8 last:pb-0 md:pl-12"
+                  className={i > 0 ? "mt-16 border-t border-line pt-16" : ""}
                 >
-                  {/* Der Punkt sitzt auf der Linie: halbe Punktbreite nach links. */}
-                  <span
-                    aria-hidden
-                    className="absolute left-0 top-2 h-2 w-2 -translate-x-1/2 rounded-full bg-accent"
-                  />
-
                   <Reveal delay={i * 60}>
-                    <time
-                      dateTime={update.date}
-                      className="text-[0.6875rem] uppercase tracking-[0.16em] text-muted"
-                    >
-                      {formatDate(update.date)}
-                    </time>
-                    <h3 className="display-3 mt-2">{update.title}</h3>
-                    <div className="prose-club mt-4 text-[1.0625rem] leading-relaxed">
+                    <div className="text-center">
+                      <time
+                        dateTime={update.date}
+                        className="text-[0.6875rem] uppercase tracking-[0.16em] text-muted"
+                      >
+                        {formatDate(update.date)}
+                      </time>
+                      <h3 className="display-3 mt-2">{update.title}</h3>
+                    </div>
+                    <div className="prose-club mt-6 text-[1.0625rem] leading-relaxed">
                       {update.body.map((paragraph, j) => (
                         <p key={j}>{paragraph}</p>
                       ))}
@@ -206,7 +201,7 @@ export default async function ProjectPage({ params }: Params) {
                   </Reveal>
 
                   {update.images.length > 0 ? (
-                    <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                    <div className="mt-8 grid gap-4 sm:grid-cols-2">
                       {update.images.map((image, j) => (
                         <Figure
                           key={image}

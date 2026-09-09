@@ -58,24 +58,21 @@ export function Section({
 }
 
 /* ── Der Kopf eines Abschnitts ────────────────────────────────────────────
-   DAS Layout-Gesetz dieser Seite. Jeder Abschnitt fängt gleich an:
+   Das Layout-Gesetz der zentrierten Fassung. Jeder Abschnitt fängt gleich an:
 
-       ────────────────────────────────────────────  Haarlinie, volle Breite
-       02 — PROJEKTE                                 Marke
-       Woran wir gerade sind                         Überschrift
-       Vorspann, höchstens zwei Zeilen breit.        optional
-       Weiterführender Link                          optional
+              ────  02 · PROJEKTE  ────      Marke zwischen zwei Linien
+                Woran wir gerade sind        Überschrift
+        Vorspann in schmaler Spalte, mittig  optional
+                    [Link]                   optional
 
-   Alles linksbündig an derselben Kante, der Inhalt darunter über die volle
-   Breite. Vorher gab es dafür fünf verschiedene Muster – mal eine schmale
-   Label-Spalte links, mal ein Link rechts aussen, mal mittig. Das ist der
-   Grund, warum die Seite unruhig wirkte.
+   Alles auf der Mittelachse, der Inhalt darunter in einer begrenzten Spalte.
+   Das ist der Unterschied zu „nur der Text ist zentriert“: zentrierter Satz
+   braucht ein schmales Mass, sonst muss das Auge bei jeder Zeile den Anfang
+   neu suchen. Deshalb steht hier überall mx-auto mit max-w statt voller
+   Breite.
 
-   Zentriert ist nur noch zweierlei: der Hero und der Schlussabschnitt. Beide
-   tragen denselben „Mitglied werden"-Knopf, und genau daran erkennt man sie.
-
-   Die Haarlinie zeichnet sich beim Erscheinen selbst – dafür muss sie in
-   einem <Reveal> stehen und darf NICHT selbst `is-visible` tragen. */
+   Das Ornament aus zwei kurzen Linien stammt vom Logo, das „Club“ ebenso
+   zwischen zwei Striche setzt. */
 export function SectionHeader({
   number,
   label,
@@ -95,33 +92,35 @@ export function SectionHeader({
   className?: string;
 }) {
   return (
-    <div className={className}>
+    <div className={`text-center ${className}`}>
       <Reveal>
-        <div className="hairline" />
-      </Reveal>
-
-      <Reveal delay={60}>
-        <p className="eyebrow mt-6">
-          {number ? `${number} — ` : ""}
-          {label}
-        </p>
+        <div className="ornament">
+          <span aria-hidden className="ornament-rule ornament-rule--left" />
+          <p className="eyebrow">
+            {number ? `${number} · ` : ""}
+            {label}
+          </p>
+          <span aria-hidden className="ornament-rule ornament-rule--right" />
+        </div>
       </Reveal>
 
       {heading ? (
-        <Reveal delay={120}>
-          <Heading className="display-2 mt-5 max-w-3xl">{heading}</Heading>
+        <Reveal delay={100}>
+          <Heading className="display-2 mx-auto mt-6 max-w-3xl">
+            {heading}
+          </Heading>
         </Reveal>
       ) : null}
 
       {lede ? (
-        <Reveal delay={180}>
-          <p className="lede mt-6 max-w-2xl">{lede}</p>
+        <Reveal delay={160}>
+          <p className="lede mx-auto mt-6 max-w-2xl">{lede}</p>
         </Reveal>
       ) : null}
 
       {action ? (
-        <Reveal delay={240}>
-          <div className="mt-8">{action}</div>
+        <Reveal delay={220}>
+          <div className="mt-9 flex justify-center">{action}</div>
         </Reveal>
       ) : null}
     </div>

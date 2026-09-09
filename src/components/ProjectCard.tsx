@@ -5,8 +5,9 @@ import StatusChip from "./StatusChip";
 import { formatDate, lastUpdatedAt, type Project } from "@/content/projects";
 
 /**
- * Eine Projektkarte. Zeigt unten das Datum des letzten Updates – das ist das
- * Lebenszeichen der Seite, seit das Journal in den Projekten aufgegangen ist.
+ * Eine Projektkarte, Inhalt auf der Mittelachse wie alles andere. Unten das
+ * Datum des letzten Updates – das Lebenszeichen der Seite, seit das Journal
+ * in den Projekten aufgegangen ist.
  */
 export default function ProjectCard({
   project,
@@ -38,7 +39,7 @@ export default function ProjectCard({
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col px-5 pb-6 pt-5">
+        <div className="flex flex-1 flex-col items-center px-5 pb-6 pt-5 text-center">
           <StatusChip status={project.status} />
           <h3 className="display-4 mt-3">{project.title}</h3>
           <p className="mt-1 text-sm text-accent">{project.tagline}</p>
@@ -48,7 +49,7 @@ export default function ProjectCard({
 
           {/* mt-auto schiebt die Fusszeile nach unten, damit die Karten im
               Raster trotz unterschiedlich langer Texte bündig abschliessen. */}
-          <div className="mt-auto flex items-center justify-between gap-3 pt-5">
+          <div className="mt-auto flex flex-col items-center gap-2 pt-6">
             <span className="inline-flex items-center gap-2 text-[0.6875rem] uppercase tracking-[0.16em] text-accent">
               Ansehen
               <svg
