@@ -175,19 +175,20 @@ export default function SiteHeader() {
                 key={item.href}
                 href={item.href}
                 aria-current={isActive(item.href) ? "page" : undefined}
-                className="menu-stagger flex items-baseline justify-center gap-5 border-b border-line py-5 first:border-t"
+                className="menu-link menu-stagger group border-b border-line py-5 first:border-t"
                 style={{ transitionDelay: open ? `${140 + i * 70}ms` : "0ms" }}
               >
-                <span className="text-[0.6875rem] uppercase tracking-[0.16em] text-accent">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
+                <span aria-hidden className="ornament-rule ornament-rule--left" />
                 <span
                   className={`display-3 transition-colors duration-200 ${
-                    isActive(item.href) ? "text-cream" : "text-cream/70"
+                    isActive(item.href)
+                      ? "text-cream"
+                      : "text-cream/70 group-hover:text-cream"
                   }`}
                 >
                   {item.label}
                 </span>
+                <span aria-hidden className="ornament-rule ornament-rule--right" />
               </Link>
             ))}
           </nav>

@@ -7,7 +7,7 @@ import { site } from "@/content/site";
 export const metadata: Metadata = {
   title: "Kontakt",
   description:
-    "Interesse am ViGORE Club oder eine Frage zu einem Projekt? Schreib uns – ein paar Zeilen reichen.",
+    "Interesse am ViGORE Club oder eine Frage zu einem Projekt? Schreib uns.",
 };
 
 export default function ContactPage() {
@@ -18,13 +18,14 @@ export default function ContactPage() {
           as="h1"
           label="Kontakt"
           heading="Schreib uns."
-          lede="Ob dich der Club interessiert, du eine Frage zu einem Projekt hast oder wissen willst, was hier eigentlich läuft: melde dich. Ein paar Zeilen reichen."
+          lede="Ob dich der Club interessiert, du eine Frage zu einem Projekt hast oder wissen willst, was hier eigentlich läuft: melde dich."
         />
 
-        {/* Direkter Draht und Standort als mittige Reihe über dem Formular –
-            statt einer Spalte daneben, die die Achse gebrochen hätte. */}
+        {/* Direkter Draht und Standort als Reihe über die volle Inhaltsbreite –
+            wie die Faktenreihe auf den Projektseiten, damit die Kontaktseite
+            genauso breit auftritt wie der Rest der Website. */}
         <Reveal delay={220}>
-          <div className="mx-auto mt-12 flex max-w-2xl flex-wrap justify-center gap-x-16 gap-y-8 border-y border-line py-8 text-center">
+          <div className="mt-14 flex flex-wrap justify-center gap-x-24 gap-y-8 border-y border-line py-10 text-center">
             <div>
               <p className="eyebrow">Direkt</p>
               <a
@@ -45,13 +46,13 @@ export default function ContactPage() {
             liest man am Rand, nicht auf einer Achse. Nur die Spalte selbst
             sitzt mittig. */}
         <Reveal delay={280}>
-          <div className="mx-auto mt-14 max-w-xl border border-line bg-surface p-6 text-left md:p-9">
+          <div className="mx-auto mt-14 max-w-3xl border border-line bg-surface p-6 text-left md:p-10">
             <InquiryForm topic="club" />
           </div>
         </Reveal>
 
         <Reveal delay={340}>
-          <p className="mx-auto mt-10 max-w-md text-center text-sm leading-relaxed text-muted">
+          <p className="mx-auto mt-10 max-w-xl text-center text-sm leading-relaxed text-muted">
             Wir sind wenige und lesen alles selbst. Es kann ein paar Tage dauern
             – aber es kommt eine Antwort.
           </p>
