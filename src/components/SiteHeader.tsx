@@ -143,36 +143,68 @@ export default function SiteHeader() {
         </div>
       </header>
 
-      {/* Menü auf dem Handy – volle Fläche, gleiche Farbe wie der Header,
-          Inhalt auf der Mittelachse wie überall sonst. */}
+      {/*
+        Menü auf dem Handy. Bleibt im Dokument und wird über Sichtbarkeit
+        ein- und ausgeblendet, damit der Übergang laufen kann; `inert`
+        nimmt es im geschlossenen Zustand aus Tastatur und Vorlesesoftware.
+
+        Der Aufbau folgt der übrigen Seite: Ornament, dann die Punkte mit
+        ihren Nummern zwischen Haarlinien, unten der direkte Draht. Die
+        Punkte steigen nacheinander auf.
+      */}
       <div
         id="mobile-menu"
-        hidden={!open}
-        className="band-espresso fixed inset-0 z-40 lg:hidden"
+        inert={!open}
+        className={`band-espresso fixed inset-0 z-40 transition-[opacity,visibility] duration-300 lg:hidden ${
+          open ? "menu-open visible opacity-100" : "invisible opacity-0"
+        }`}
       >
-        <nav
-          aria-label="Hauptnavigation"
-          className="flex h-full flex-col items-center justify-center gap-2 px-5 pb-24 text-center"
-        >
-          {navigation.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              aria-current={isActive(item.href) ? "page" : undefined}
-              className={`display-3 py-2 transition-colors duration-200 ${
-                isActive(item.href) ? "text-cream" : "text-cream/65"
-              }`}
-            >
-              {item.label}
-            </Link>
-          ))}
-          <a
-            href={`mailto:${site.email}`}
-            className="link-quiet mt-8 text-sm text-brass"
+        <div className="flex h-full flex-col justify-center overflow-y-auto px-5 pb-16 pt-28 text-center">
+          <div
+            className={`ornament menu-stagger ${open ? "is-visible" : ""}`}
+            style={{ transitionDelay: open ? "60ms" : "0ms" }}
           >
-            {site.email}
-          </a>
-        </nav>
+            <span aria-hidden className="ornament-rule ornament-rule--left" />
+            <p className="eyebrow">Menü</p>
+            <span aria-hidden className="ornament-rule ornament-rule--right" />
+          </div>
+
+          <nav aria-label="Hauptnavigation" className="mt-10">
+            {navigation.map((item, i) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
+                className="menu-stagger flex items-baseline justify-center gap-5 border-b border-line py-5 first:border-t"
+                style={{ transitionDelay: open ? `${140 + i * 70}ms` : "0ms" }}
+              >
+                <span className="text-[0.6875rem] uppercase tracking-[0.16em] text-accent">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span
+                  className={`display-3 transition-colors duration-200 ${
+                    isActive(item.href) ? "text-cream" : "text-cream/70"
+                  }`}
+                >
+                  {item.label}
+                </span>
+              </Link>
+            ))}
+          </nav>
+
+          <div
+            className="menu-stagger mt-12 space-y-1"
+            style={{ transitionDelay: open ? `${180 + navigation.length * 70}ms` : "0ms" }}
+          >
+            <a
+              href={`mailto:${site.email}`}
+              className="link-quiet inline-block text-brass"
+            >
+              {site.email}
+            </a>
+            <p className="text-sm text-muted">{site.location}</p>
+          </div>
+        </div>
       </div>
     </>
   );

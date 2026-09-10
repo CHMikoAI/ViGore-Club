@@ -267,7 +267,9 @@ body {
   background-color: var(--color-accent);
   opacity: 0.55;
   transform: scaleX(0);
-  transition: transform 800ms var(--ease-club);
+  transition:
+    transform 800ms var(--ease-club),
+    width 420ms var(--ease-club);
 }
 .ornament-rule--left {
   transform-origin: right;
@@ -275,8 +277,46 @@ body {
 .ornament-rule--right {
   transform-origin: left;
 }
+/* Einzelne Linie, die aus ihrer Mitte heraus wächst – für Stellen, an denen
+   das volle Ornament zu viel wäre, etwa über jedem Wert im Haltungsraster. */
+.ornament-rule--center {
+  width: clamp(1.5rem, 4vw, 2.25rem);
+  transform-origin: center;
+}
 .is-visible .ornament-rule {
   transform: scaleX(1);
+}
+
+@media (hover: hover) {
+  .value-item:hover .ornament-rule--center {
+    width: clamp(3rem, 8vw, 4.5rem);
+    opacity: 0.8;
+  }
+}
+
+/* ── Menü auf dem Handy ────────────────────────────────────────────────────
+   Die Punkte steigen nacheinander auf. Der Versatz steht inline am Element,
+   weil er von der Position in der Liste abhängt; hier steht nur, WIE sich
+   etwas bewegt, nicht wann. */
+.menu-stagger {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 480ms var(--ease-club),
+    transform 480ms var(--ease-club);
+}
+.menu-open .menu-stagger {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-stagger,
+  .menu-open .menu-stagger {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
 
 /* Das Kapitälchen-Label über jedem Abschnitt – „01 — Projekte".

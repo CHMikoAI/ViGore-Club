@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Figure from "@/components/Figure";
 import Reveal from "@/components/Reveal";
+import ValueGrid from "@/components/ValueGrid";
 import {
   Container,
   OutlineButton,
@@ -113,16 +114,7 @@ export default function ClubPage() {
             heading="Worauf wir uns verlassen"
           />
 
-          <div className="mx-auto mt-16 grid max-w-5xl gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-            {values.map((value, i) => (
-              <Reveal key={value.title} delay={i * 60} className="text-center">
-                <h3 className="display-4">{value.title}</h3>
-                <p className="mx-auto mt-2 max-w-xs text-sm leading-relaxed text-muted">
-                  {value.body}
-                </p>
-              </Reveal>
-            ))}
-          </div>
+          <ValueGrid values={values} />
         </Container>
       </Section>
 
