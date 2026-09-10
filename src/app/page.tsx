@@ -1,3 +1,4 @@
+import FitSection from "@/components/FitSection";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
 import ValueGrid from "@/components/ValueGrid";
@@ -165,6 +166,8 @@ export default function HomePage() {
           <ValueGrid values={values} />
         </Container>
       </Section>
+
+      <FitSection number="04" />
 
       {/* ── Sei dabei · Ansprache ─────────────────────────────────────────
           Gleiche Fläche und gleicher Knopf wie der Hero, nur ohne die volle

@@ -1,15 +1,15 @@
 import type { Metadata } from "next";
 import Figure from "@/components/Figure";
 import Reveal from "@/components/Reveal";
+import FitSection from "@/components/FitSection";
 import ValueGrid from "@/components/ValueGrid";
-import { CheckIcon, CrossIcon } from "@/components/icons";
 import {
   Container,
   OutlineButton,
   Section,
   SectionHeader,
 } from "@/components/ui";
-import { facts, fit, founders, rhythm, values } from "@/content/club";
+import { facts, founders, rhythm, values } from "@/content/club";
 
 export const metadata: Metadata = {
   title: "Der Club",
@@ -159,50 +159,7 @@ export default function ClubPage() {
         </Container>
       </Section>
 
-      {/* ── Für wen ──────────────────────────────────────────────────────
-          Zwei Spalten nebeneinander, auf dem Handy untereinander. Die
-          Überschriften sitzen auf der Achse, die Punkte selbst sind
-          linksbündig – Aufzählungen liest man am Rand, nicht mittig. */}
-      <Section band="paper">
-        <Container>
-          <SectionHeader
-            number="05"
-            label="Für wen"
-            heading="Ob das etwas für dich ist"
-            lede="Wir sind nicht für jeden – das ist keine Koketterie, sondern spart beiden Seiten Zeit. Hier die ehrliche Fassung."
-          />
-
-          <div className="mx-auto mt-14 grid max-w-5xl gap-6 md:grid-cols-2">
-            {[
-              { ...fit.yes, Icon: CheckIcon, ton: "text-forest" },
-              { ...fit.no, Icon: CrossIcon, ton: "text-muted" },
-            ].map((spalte, s) => (
-              <Reveal key={spalte.title} delay={s * 90}>
-                <div className="flex h-full flex-col border border-line bg-surface p-7 md:p-9">
-                  <div className="flex items-center justify-center gap-3">
-                    <spalte.Icon className={`h-5 w-5 shrink-0 ${spalte.ton}`} />
-                    <h3 className="display-4">{spalte.title}</h3>
-                  </div>
-
-                  <ul className="mt-8 space-y-5 text-left">
-                    {spalte.items.map((item) => (
-                      <li key={item} className="flex gap-4">
-                        <span
-                          aria-hidden
-                          className="mt-3 h-px w-4 shrink-0 bg-accent/50"
-                        />
-                        <span className="text-[0.9375rem] leading-relaxed text-muted">
-                          {item}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </Container>
-      </Section>
+      <FitSection number="05" />
 
       {/* ── Sei dabei · Ansprache ──────────────────────────────────────── */}
       <Section band="espresso">
