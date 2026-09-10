@@ -2,20 +2,14 @@ import type { Metadata } from "next";
 import Figure from "@/components/Figure";
 import Reveal from "@/components/Reveal";
 import ValueGrid from "@/components/ValueGrid";
+import { CheckIcon, CrossIcon } from "@/components/icons";
 import {
   Container,
   OutlineButton,
   Section,
   SectionHeader,
 } from "@/components/ui";
-import {
-  facts,
-  founders,
-  notThis,
-  notThisNote,
-  rhythm,
-  values,
-} from "@/content/club";
+import { facts, fit, founders, rhythm, values } from "@/content/club";
 
 export const metadata: Metadata = {
   title: "Der Club",
@@ -165,45 +159,57 @@ export default function ClubPage() {
         </Container>
       </Section>
 
-      {/* ── Abgrenzung ───────────────────────────────────────────────────── */}
+      {/* ── Für wen ──────────────────────────────────────────────────────
+          Zwei Spalten nebeneinander, auf dem Handy untereinander. Die
+          Überschriften sitzen auf der Achse, die Punkte selbst sind
+          linksbündig – Aufzählungen liest man am Rand, nicht mittig. */}
       <Section band="paper">
         <Container>
           <SectionHeader
             number="05"
-            label="Abgrenzung"
-            heading="Was wir nicht sind"
+            label="Für wen"
+            heading="Ob das etwas für dich ist"
+            lede="Wir sind nicht für jeden – das ist keine Koketterie, sondern spart beiden Seiten Zeit. Hier die ehrliche Fassung."
           />
 
-          <div className="mx-auto mt-14 max-w-2xl">
-            <ul className="text-center">
-              {notThis.map((item, i) => (
-                <Reveal key={item} delay={i * 70}>
-                  <li className="border-b border-line py-6 last:border-0">
-                    <span className="display-4">{item}</span>
-                  </li>
-                </Reveal>
-              ))}
-            </ul>
+          <div className="mx-auto mt-14 grid max-w-5xl gap-6 md:grid-cols-2">
+            {[
+              { ...fit.yes, Icon: CheckIcon, ton: "text-forest" },
+              { ...fit.no, Icon: CrossIcon, ton: "text-muted" },
+            ].map((spalte, s) => (
+              <Reveal key={spalte.title} delay={s * 90}>
+                <div className="flex h-full flex-col border border-line bg-surface p-7 md:p-9">
+                  <div className="flex items-center justify-center gap-3">
+                    <spalte.Icon className={`h-5 w-5 shrink-0 ${spalte.ton}`} />
+                    <h3 className="display-4">{spalte.title}</h3>
+                  </div>
 
-            <div className="prose-club mx-auto mt-12 text-center text-[1.0625rem] leading-relaxed text-muted">
-              {notThisNote.map((paragraph, i) => (
-                <Reveal key={i} delay={i * 80}>
-                  <p>{paragraph}</p>
-                </Reveal>
-              ))}
-            </div>
+                  <ul className="mt-8 space-y-5 text-left">
+                    {spalte.items.map((item) => (
+                      <li key={item} className="flex gap-4">
+                        <span
+                          aria-hidden
+                          className="mt-3 h-px w-4 shrink-0 bg-accent/50"
+                        />
+                        <span className="text-[0.9375rem] leading-relaxed text-muted">
+                          {item}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </Container>
       </Section>
 
-      {/* ── Sei dabei · Ansprache ────────────────────────────────────────
-          Wortgleich mit dem Schluss der Startseite: wo „Mitglied werden"
-          steht, soll überall dasselbe stehen. */}
+      {/* ── Sei dabei · Ansprache ──────────────────────────────────────── */}
       <Section band="espresso">
         <Container>
           <SectionHeader
             label="Sei dabei!"
-            heading="Bereit, Verantwortung zu übernehmen?"
+            heading="Klingt nach dir?"
             lede="Wenn du dich in unseren Werten wiedererkennst und bereit bist, dich einzubringen, dann melde dich bei uns."
             action={
               <OutlineButton href="/kontakt" tone="light">

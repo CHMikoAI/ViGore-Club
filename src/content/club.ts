@@ -62,21 +62,36 @@ export const rhythm: { when: string; what: string; body: string }[] = [
 ];
 
 /**
- * Abgrenzung. Ehrlich, aber nicht defensiv: kurze Feststellungen statt einer
- * Liste von Absagen, und danach in eigenen Worten, was der Club stattdessen
- * ist.
+ * Für wen der Club ist – und für wen eher nicht.
+ *
+ * Der Gedanke stammt von der bisherigen Website, der Ton nicht: dort stand
+ * eine feierliche Eignungsprüfung. Hier darf durchscheinen, dass das Ganze
+ * auch Spass machen soll. Die inhaltlich wichtigen Punkte sind trotzdem alle
+ * drin – vor allem die Grenze zur Therapie, die klar und ohne Zwinkern
+ * dasteht.
  */
-export const notThis: string[] = [
-  "Keine Therapie",
-  "Kein Coaching",
-  "Kein Business-Netzwerk",
-];
-
-/** Steht unter der Abgrenzungsliste. */
-export const notThisNote: string[] = [
-  "Wir sind keine Fachleute und tun auch nicht so. Wenn es jemandem richtig schlecht geht, gehört er zu jemandem, der das gelernt hat. Das auszusprechen ist für uns keine Schwäche, sondern der ehrlichere Weg.",
-  "Was wir sind: eine Handvoll Männer, die sich regelmässig sehen, gemeinsam etwas auf die Beine stellen und mitbekommen, wenn es beim anderen gerade nicht läuft. Das klingt unspektakulär. Es ist erstaunlich selten.",
-];
+export const fit = {
+  yes: {
+    title: "Du passt zu uns, wenn …",
+    items: [
+      "du gern anpackst – auch wenn es regnet und niemand zuschaut.",
+      "du zuverlässig bist. Zusagen sind bei uns keine Absichtserklärungen.",
+      "du auch mal sagen kannst, dass es gerade nicht läuft.",
+      "du dich für Trüffel, Most und das, was als Nächstes kommt, begeistern kannst.",
+      "du eine ehrliche Rückfrage aushältst, ohne sie krummzunehmen.",
+    ],
+  },
+  no: {
+    title: "… eher nicht, wenn …",
+    items: [
+      "du gerade eine Therapie brauchst. Dafür gibt es Fachleute, und die können das besser als wir.",
+      "du auf ein Programm wartest, das dich in zwölf Wochen umbaut.",
+      "du lieber zuschaust. Zuschauer hat jeder von uns genug im Leben.",
+      "du hier Visitenkarten verteilen möchtest.",
+      "dir Erde unter den Fingernägeln grundsätzlich zuwider ist.",
+    ],
+  },
+};
 
 /**
  * Die drei Schritte des Ansatzes – auf der Startseite mit grossen Ziffern.

@@ -37,3 +37,21 @@ export function LinkedinIcon({ className }: IconProps) {
     </svg>
   );
 }
+
+/** Häkchen für die „passt"-Spalte. */
+export function CheckIcon({ className }: IconProps) {
+  return (
+    <svg {...BASE} className={className}>
+      <path d="M4 12.5 9.5 18 20 6.5" />
+    </svg>
+  );
+}
+
+/** Kreuz für die „passt eher nicht"-Spalte. */
+export function CrossIcon({ className }: IconProps) {
+  return (
+    <svg {...BASE} className={className}>
+      <path d="M5.5 5.5l13 13M18.5 5.5l-13 13" />
+    </svg>
+  );
+}
