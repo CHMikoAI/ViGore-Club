@@ -21,11 +21,11 @@ export default function ContactPage() {
           lede="Ob dich der Club interessiert, du eine Frage zu einem Projekt hast oder wissen willst, was hier eigentlich läuft: melde dich."
         />
 
-        {/* Direkter Draht und Standort als Reihe über die volle Inhaltsbreite –
-            wie die Faktenreihe auf den Projektseiten, damit die Kontaktseite
-            genauso breit auftritt wie der Rest der Website. */}
+        {/* Direkter Draht und Standort als Reihe über dem Formular. Auf
+            dieselbe Breite begrenzt wie das Formular darunter (max-w-3xl),
+            damit die beiden Linien mit dessen Rahmen fluchten. */}
         <Reveal delay={220}>
-          <div className="mt-14 flex flex-wrap justify-center gap-x-24 gap-y-8 border-y border-line py-10 text-center">
+          <div className="mx-auto mt-14 flex max-w-3xl flex-wrap justify-center gap-x-24 gap-y-8 border-y border-line py-10 text-center">
             <div>
               <p className="eyebrow">Direkt</p>
               <a
