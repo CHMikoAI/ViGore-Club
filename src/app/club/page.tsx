@@ -8,13 +8,20 @@ import {
   Section,
   SectionHeader,
 } from "@/components/ui";
-import { notThis, rhythm, values } from "@/content/club";
+import {
+  facts,
+  founders,
+  notThis,
+  notThisNote,
+  rhythm,
+  values,
+} from "@/content/club";
 
 export const metadata: Metadata = {
   title: "Der Club",
   description:
-    "Warum es den ViGORE Club gibt, wie ein Monat bei uns aussieht und " +
-    "worauf wir uns verlassen. Ein Männerclub in Graubünden.",
+    "Warum es den ViGORE Club gibt, wer dahintersteht und was bei uns fest " +
+    "im Kalender steht. Ein Männerclub in Graubünden.",
 };
 
 export default function ClubPage() {
@@ -40,15 +47,12 @@ export default function ClubPage() {
         />
       </Container>
 
-      {/* ── Warum es uns gibt ─────────────────────────────────────────────
-          Fliesstext in schmaler, mittiger Spalte. Zentrierte Absätze wären
-          hier falsch – mehrzeiliger Fliesstext bleibt linksbündig gesetzt,
-          nur die Spalte selbst sitzt auf der Achse. */}
+      {/* ── Warum es uns gibt ───────────────────────────────────────────── */}
       <Section band="cream">
         <Container>
           <SectionHeader number="01" label="Warum es uns gibt" />
 
-          <div className="prose-club mx-auto mt-10 max-w-2xl text-[1.0625rem] leading-relaxed">
+          <div className="prose-club mx-auto mt-10 max-w-2xl text-center text-[1.0625rem] leading-relaxed">
             <Reveal>
               <p>
                 Die meisten Männer haben Kollegen, mit denen sie über alles
@@ -73,18 +77,61 @@ export default function ClubPage() {
               </p>
             </Reveal>
           </div>
+
+          {/* Die harten Zahlen direkt hinter der Erzählung – erst warum,
+              dann wie klein und wie jung das Ganze tatsächlich ist. */}
+          <Reveal delay={220}>
+            <dl className="mx-auto mt-16 flex max-w-3xl flex-wrap justify-center gap-x-24 gap-y-10 border-y border-line py-10 text-center">
+              {facts.map((fact) => (
+                <div key={fact.label}>
+                  <dt className="eyebrow">{fact.label}</dt>
+                  <dd className="display-2 mt-2">{fact.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </Reveal>
         </Container>
       </Section>
 
-      {/* ── Rhythmus ──────────────────────────────────────────────────────
-          Gestapelt auf der Achse statt zweispaltig: die Zeitangabe steht über
-          dem Titel, nicht daneben. */}
-      <Section band="dark">
+      {/* ── Die Gründer ──────────────────────────────────────────────────── */}
+      <Section band="paper">
         <Container>
           <SectionHeader
             number="02"
+            label="Die Gründer"
+            heading="Zu dritt angefangen"
+          />
+
+          <div className="mx-auto mt-12 max-w-4xl text-center">
+            <Figure
+              src={founders.image}
+              alt={`${founders.names.join(", ")} – die Gründer des ViGORE Clubs`}
+              ratio="3/2"
+              sizes="(max-width: 1024px) 100vw, 56rem"
+            />
+
+            <Reveal delay={120}>
+              <p className="eyebrow mt-6">{founders.names.join(" · ")}</p>
+            </Reveal>
+          </div>
+
+          <div className="prose-club mx-auto mt-12 max-w-2xl text-center text-[1.0625rem] leading-relaxed">
+            {founders.vision.map((paragraph, i) => (
+              <Reveal key={i} delay={i * 70}>
+                <p>{paragraph}</p>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {/* ── Rhythmus ─────────────────────────────────────────────────────── */}
+      <Section band="dark">
+        <Container>
+          <SectionHeader
+            number="03"
             label="Rhythmus"
-            heading="Wie ein Monat aussieht"
+            heading="Was fest im Kalender steht"
           />
 
           <div className="mx-auto mt-14 max-w-2xl">
@@ -105,11 +152,11 @@ export default function ClubPage() {
         </Container>
       </Section>
 
-      {/* ── Werte ───────────────────────────────────────────────────────── */}
+      {/* ── Werte ────────────────────────────────────────────────────────── */}
       <Section band="cream">
         <Container>
           <SectionHeader
-            number="03"
+            number="04"
             label="Werte"
             heading="Worauf wir uns verlassen"
           />
@@ -118,11 +165,11 @@ export default function ClubPage() {
         </Container>
       </Section>
 
-      {/* ── Abgrenzung ──────────────────────────────────────────────────── */}
+      {/* ── Abgrenzung ───────────────────────────────────────────────────── */}
       <Section band="paper">
         <Container>
           <SectionHeader
-            number="04"
+            number="05"
             label="Abgrenzung"
             heading="Was wir nicht sind"
           />
@@ -138,27 +185,26 @@ export default function ClubPage() {
               ))}
             </ul>
 
-            <Reveal delay={220}>
-              <p className="mx-auto mt-10 text-[1.0625rem] leading-relaxed text-muted">
-                Wer eine Therapie oder professionelle Begleitung braucht, ist
-                bei Fachleuten besser aufgehoben. Das ist keine Schwäche,
-                sondern die richtige Entscheidung. Wir sind das, was daneben
-                steht: ein Kreis von Männern, die füreinander da sind, weil sie
-                einander kennen.
-              </p>
-            </Reveal>
+            <div className="prose-club mx-auto mt-12 text-center text-[1.0625rem] leading-relaxed text-muted">
+              {notThisNote.map((paragraph, i) => (
+                <Reveal key={i} delay={i * 80}>
+                  <p>{paragraph}</p>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </Container>
       </Section>
 
-      {/* ── Sei dabei · Ansprache ─────────────────────────────────────────── */}
+      {/* ── Sei dabei · Ansprache ────────────────────────────────────────
+          Wortgleich mit dem Schluss der Startseite: wo „Mitglied werden"
+          steht, soll überall dasselbe stehen. */}
       <Section band="espresso">
         <Container>
           <SectionHeader
-            number="05"
             label="Sei dabei!"
-            heading="Klingt nach dir?"
-            lede="Dann schreib uns. Kein Formular-Marathon – ein paar Zeilen reichen. Den Rest klären wir im Gespräch, und zwar in beide Richtungen: es muss auch für dich passen."
+            heading="Bereit, Verantwortung zu übernehmen?"
+            lede="Wenn du dich in unseren Werten wiedererkennst und bereit bist, dich einzubringen, dann melde dich bei uns."
             action={
               <OutlineButton href="/kontakt" tone="light">
                 Mitglied werden

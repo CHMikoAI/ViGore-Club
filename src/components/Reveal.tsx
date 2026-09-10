@@ -60,14 +60,29 @@ export default function Reveal({
     return () => observer.disconnect();
   }, []);
 
-  const base = variant === "image" ? "reveal-image" : "reveal";
+  const style = delay
+    ? ({ "--reveal-delay": `${delay}ms` } as React.CSSProperties)
+    : undefined;
+  const state = visible ? " is-visible" : "";
+
+  // Bilder: der Beschnitt sitzt auf einem inneren Element, nicht auf dem
+  // beobachteten.
+  //
+  // Vorher trug dasselbe Element beides – und damit lief es in eine Sackgasse:
+  // `clip-path: inset(0 0 100% 0)` macht die sichtbare Fläche null, der
+  // IntersectionObserver meldet deshalb nie eine Überschneidung, das
+  // `is-visible` kommt nie, der Beschnitt geht nie auf. Jedes Bild mit
+  // Einblendung blieb unsichtbar. Aussen beobachten, innen beschneiden.
+  if (variant === "image") {
+    return (
+      <div ref={ref} className={`reveal-image-root${state} ${className}`} style={style}>
+        <div className="reveal-image">{children}</div>
+      </div>
+    );
+  }
 
   return (
-    <div
-      ref={ref}
-      className={`${base}${visible ? " is-visible" : ""} ${className}`}
-      style={delay ? ({ "--reveal-delay": `${delay}ms` } as React.CSSProperties) : undefined}
-    >
+    <div ref={ref} className={`reveal${state} ${className}`} style={style}>
       {children}
     </div>
   );

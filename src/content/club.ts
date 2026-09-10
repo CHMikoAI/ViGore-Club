@@ -50,20 +50,32 @@ export const rhythm: { when: string; what: string; body: string }[] = [
     body: "Wir setzen uns zusammen. Es gibt ein Thema – und keinen Zwang, etwas vorzuweisen.",
   },
   {
-    when: "Mehrmals im Jahr",
-    what: "Projektwochenenden",
-    body: "Ein bis zwei Tage draussen, an einem echten Vorhaben. Das ist der Kern des Ganzen.",
+    when: "Je nach Bedarf",
+    what: "Projektarbeit",
+    body: "Wenn ein Projekt etwas braucht, wird angepackt. Mal ein Nachmittag, mal ein ganzes Wochenende – der Kern des Ganzen.",
+  },
+  {
+    when: "Einmal im Jahr",
+    what: "Clubausflug",
+    body: "Mindestens einmal jährlich mehrere Tage weg. Genug Zeit, dass die Gespräche über den Small Talk hinauskommen.",
   },
 ];
 
 /**
- * Abgrenzung. Das war auf der alten Seite gut und bleibt: es schärft das
- * Profil und schützt die, die eigentlich etwas anderes brauchen.
+ * Abgrenzung. Ehrlich, aber nicht defensiv: kurze Feststellungen statt einer
+ * Liste von Absagen, und danach in eigenen Worten, was der Club stattdessen
+ * ist.
  */
 export const notThis: string[] = [
-  "Kein Therapieangebot",
-  "Kein Coaching-Programm",
-  "Kein Netzwerk zum Visitenkartentausch",
+  "Keine Therapie",
+  "Kein Coaching",
+  "Kein Business-Netzwerk",
+];
+
+/** Steht unter der Abgrenzungsliste. */
+export const notThisNote: string[] = [
+  "Wir sind keine Fachleute und tun auch nicht so. Wenn es jemandem richtig schlecht geht, gehört er zu jemandem, der das gelernt hat. Das auszusprechen ist für uns keine Schwäche, sondern der ehrlichere Weg.",
+  "Was wir sind: eine Handvoll Männer, die sich regelmässig sehen, gemeinsam etwas auf die Beine stellen und mitbekommen, wenn es beim anderen gerade nicht läuft. Das klingt unspektakulär. Es ist erstaunlich selten.",
 ];
 
 /**
@@ -88,4 +100,30 @@ export const quote = {
   text: "Waste no more time arguing what a good man should be. Be one.",
   author: "Marcus Aurelius",
   role: "Römischer Kaiser",
+};
+
+/**
+ * Die harten Zahlen. Bewusst knapp – vier Mitglieder sind keine Schwäche,
+ * sondern genau die Aussage, die der Club treffen will.
+ *
+ * Bitte aktuell halten: die Mitgliederzahl ist das Erste, was auffällt, wenn
+ * sie nicht mehr stimmt.
+ */
+export const facts: { label: string; value: string }[] = [
+  { label: "Mitglieder", value: "4" },
+  { label: "Gegründet", value: "2026" },
+  { label: "Region", value: "Graubünden" },
+];
+
+/**
+ * Die Gründer. Bild und Text stehen auf /club.
+ */
+export const founders = {
+  names: ["Gianluca", "Leo", "Mirko"],
+  image: "/images/club/gruender.jpg",
+  vision: [
+    "Wir drei kannten dasselbe Gefühl: viele Leute um sich herum – und trotzdem niemanden, mit dem man über das redet, was einen wirklich beschäftigt. Nicht aus bösem Willen. Es ergibt sich einfach nicht.",
+    "Irgendwann haben wir aufgehört, darauf zu warten, dass es sich ergibt. Der ViGORE Club ist das, was daraus geworden ist: ein fester Kreis, in dem man sich kennt, weil man miteinander arbeitet – und in dem gefragt wird, wie es einem geht, auch wenn die Antwort länger dauert als ein Satz.",
+    "Wir wollen keinen grossen Club. Wir wollen einen, auf den Verlass ist.",
+  ],
 };

@@ -14,7 +14,8 @@ Kein Code, keine Einstellung, kein Neustart.
 ```
 images/
 ├─ club/
-│  └─ club-gruppe.jpg                        Breites Bild auf der Seite „Der Club"
+│  ├─ club-gruppe.jpg                        Breites Bild auf der Seite „Der Club"
+│  └─ gruender.jpg                          Gianluca, Leo und Mirko
 │
 └─ projekte/
    ├─ trueffelplantage-hero.jpg              Kopfbild Trüffelplantage
