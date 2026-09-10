@@ -159,12 +159,12 @@ export default function ClubPage() {
         </Container>
       </Section>
 
-      {/* ── Mitmachen · Ansprache ─────────────────────────────────────────── */}
+      {/* ── Sei dabei · Ansprache ─────────────────────────────────────────── */}
       <Section band="espresso">
         <Container>
           <SectionHeader
             number="05"
-            label="Mitmachen"
+            label="Sei dabei!"
             heading="Klingt nach dir?"
             lede="Dann schreib uns. Kein Formular-Marathon – ein paar Zeilen reichen. Den Rest klären wir im Gespräch, und zwar in beide Richtungen: es muss auch für dich passen."
             action={

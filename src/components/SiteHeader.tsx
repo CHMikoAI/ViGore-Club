@@ -87,13 +87,17 @@ export default function SiteHeader() {
             aria-label={`${site.name} – zur Startseite`}
             className="shrink-0 px-6 transition-opacity duration-200 hover:opacity-80"
           >
+            {/* Das Original aus ViGORE_Logos.png, freigestellt und auf den
+                Inhalt beschnitten – dadurch steht der Schriftzug ohne den
+                Weissrand der Quelldatei und wirkt bei gleicher Höhe grösser.
+                brightness-0 invert färbt ihn auf dem Espresso weiss. */}
             <Image
               src="/logo-vigore.png"
               alt={site.name}
-              width={640}
-              height={236}
+              width={1938}
+              height={653}
               priority
-              className="h-8 w-auto brightness-0 invert md:h-9"
+              className="h-10 w-auto brightness-0 invert md:h-12"
             />
           </Link>
 

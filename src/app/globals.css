@@ -213,6 +213,8 @@ body {
   display: block;
   width: 100%;
   white-space: nowrap;
+  /* Nur der Schriftzug reagiert auf den Zeiger, nicht der ganze Footer. */
+  cursor: default;
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: -0.04em;
@@ -220,6 +222,28 @@ body {
   /* Knapp unter 1, damit unter dem Wort kein toter Streifen bleibt –
      „ViGORE" hat keine Unterlängen. */
   line-height: 0.76;
+}
+
+/* Jeder Buchstabe sitzt in einem eigenen Feld, dessen Breite die Komponente
+   Wordmark.tsx im Grundgewicht einmisst und festhält. Wird die Glyphe beim
+   Überfahren dünner, schrumpft sie innerhalb ihres Feldes – die Gesamtbreite
+   des Wortes bleibt dadurch exakt die des Inhalts darüber.
+
+   Der Übergang läuft absichtlich kurz mit: bei fortlaufender Zeigerbewegung
+   ergibt das ein weiches Nachziehen statt harter Sprünge, und beim Verlassen
+   fahren die Buchstaben sanft ins volle Gewicht zurück. */
+.wordmark-letter {
+  display: inline-block;
+  text-align: center;
+  font-weight: 700;
+  font-variation-settings: normal;
+  transition: font-weight 220ms var(--ease-club);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wordmark-letter {
+    transition: none;
+  }
 }
 
 /* ── Ornament der zentrierten Fassung ──────────────────────────────────────

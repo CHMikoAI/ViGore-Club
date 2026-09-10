@@ -1,0 +1,7 @@
+# Zeilenenden im Arbeitsverzeichnis auf LF halten.
+#
+# Ohne diese Regel schreibt Git unter Windows beim Auschecken CRLF in die
+# Dateien. Das ist unsichtbar, bricht aber jedes Werkzeug, das mehrzeilige
+# Textstellen sucht und ersetzt – genau das ist beim Zurückholen des Footers
+# aus einem anderen Zweig passiert.
+* text=auto eol=lf

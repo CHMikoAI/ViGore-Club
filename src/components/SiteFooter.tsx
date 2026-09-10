@@ -1,14 +1,15 @@
 import Link from "next/link";
 import { InstagramIcon, LinkedinIcon } from "./icons";
+import Wordmark from "./Wordmark";
 import { legalLinks, site, socials } from "@/content/site";
 
 /**
- * Der Footer der bisherigen Website, unverändert im Aufbau: Kontakt und
- * Rechtliches links, Social und Copyright rechts – und darunter der grosse
- * ViGORE-Schriftzug, der unten aus dem Bild läuft.
+ * Der Footer der bisherigen Website: Kontakt und Rechtliches links, Social
+ * und Copyright rechts – darunter der grosse ViGORE-Schriftzug.
  *
- * Der Schriftzug ist in vw bemessen und wird vom Footer beschnitten, damit er
- * auf jedem Gerät gleich sitzt. `pb-[28vw]` hält den Platz dafür frei.
+ * Bewusst NICHT mittig, obwohl der Rest der Seite auf der Achse sitzt: die
+ * zwei Blöcke links und rechts geben dem Fuss eine Breite, die ein mittiger
+ * Stapel nicht hat, und der Schriftzug darunter spannt ohnehin über alles.
  */
 
 const ICONS = {
@@ -99,12 +100,7 @@ export default function SiteFooter() {
       */}
       <div className="mx-auto max-w-[1400px] px-5 pt-10 md:px-8">
         <div className="wordmark-band">
-          <p
-            className="wordmark pointer-events-none select-none text-on-surface"
-            aria-hidden
-          >
-            ViGORE
-          </p>
+          <Wordmark />
         </div>
       </div>
     </footer>

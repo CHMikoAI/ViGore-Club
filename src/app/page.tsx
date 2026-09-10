@@ -101,31 +101,6 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* ── Leitsatz · Inhalt ─────────────────────────────────────────────
-          Steht bewusst hier und nicht am Schluss: dort stiess das dunkle Band
-          direkt auf den Espresso des Abschlusses und die beiden verschmolzen
-          zu einer schweren Masse. */}
-      <Section band="dark">
-        <Container>
-          <SectionHeader label="Leitsatz" />
-
-          <figure className="mt-8 text-center">
-            <Reveal delay={120}>
-              <blockquote className="display-2 mx-auto max-w-3xl text-balance">
-                &laquo;{quote.text}&raquo;
-              </blockquote>
-            </Reveal>
-
-            <Reveal delay={200}>
-              <figcaption className="mt-9 text-[0.6875rem] uppercase tracking-[0.18em]">
-                <span className="text-on-surface">{quote.author}</span>
-                <span className="text-muted"> · {quote.role}</span>
-              </figcaption>
-            </Reveal>
-          </figure>
-        </Container>
-      </Section>
-
       {/* ── Projekte · Inhalt ─────────────────────────────────────────────── */}
       <Section band="paper">
         <Container>
@@ -147,6 +122,31 @@ export default function HomePage() {
               <ArrowLink href="/projekte">Alle Projekte</ArrowLink>
             </div>
           </Reveal>
+        </Container>
+      </Section>
+
+      {/* ── Zitat · Inhalt ────────────────────────────────────────────────
+          Sitzt zwischen Papier und Creme. Nicht am Schluss: dort stiesse das
+          tiefdunkle Band direkt auf den Espresso des Abschlusses und die
+          beiden verschmölzen zu einer schweren Masse. */}
+      <Section band="dark">
+        <Container>
+          <SectionHeader label="Zitat" />
+
+          <figure className="mt-8 text-center">
+            <Reveal delay={120}>
+              <blockquote className="display-2 mx-auto max-w-3xl text-balance">
+                &laquo;{quote.text}&raquo;
+              </blockquote>
+            </Reveal>
+
+            <Reveal delay={200}>
+              <figcaption className="mt-9 text-[0.6875rem] uppercase tracking-[0.18em]">
+                <span className="text-on-surface">{quote.author}</span>
+                <span className="text-muted"> · {quote.role}</span>
+              </figcaption>
+            </Reveal>
+          </figure>
         </Container>
       </Section>
 
@@ -174,15 +174,15 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      {/* ── Mitmachen · Ansprache ─────────────────────────────────────────
+      {/* ── Sei dabei · Ansprache ─────────────────────────────────────────
           Gleiche Fläche und gleicher Knopf wie der Hero, nur ohne die volle
           Höhe. Der Übergang zum hellen Footer schliesst die Seite ab. */}
       <Section band="espresso">
         <Container>
           <SectionHeader
-            label="Mitmachen"
+            label="Sei dabei!"
             heading="Bereit, Verantwortung zu übernehmen?"
-            lede="Wenn du dich in unseren Werten wiedererkennst und bereit bist, dich aktiv einzubringen, freuen wir uns auf deine Bewerbung."
+            lede="Wenn du dich in unseren Werten wiedererkennst und bereit bist, dich einzubringen, dann melde dich. Den Rest schauen wir gemeinsam an – es muss auch für dich passen."
             action={
               <OutlineButton href="/kontakt" tone="light">
                 Mitglied werden

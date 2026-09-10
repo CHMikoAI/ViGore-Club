@@ -14,9 +14,12 @@
 
 import { Cormorant_Garamond, Inter } from "next/font/google";
 
+// Ohne `weight` liefert next/font den variablen Schnitt (Achse wght 300–700).
+// Das ist Voraussetzung für den Schriftzug im Footer: dort wandern die
+// Buchstabengewichte beim Überfahren stufenlos, mit festen Schnitten würden
+// sie springen.
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
   variable: "--font-cormorant",
   display: "swap",
 });
