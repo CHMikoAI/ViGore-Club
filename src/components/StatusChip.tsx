@@ -10,7 +10,6 @@ const DOT: Record<ProjectStatus, string> = {
   laufend: "bg-forest",
   bald: "bg-brass",
   "coming-soon": "bg-muted",
-  woechentlich: "bg-bark",
 };
 
 export default function StatusChip({ status }: { status: ProjectStatus }) {

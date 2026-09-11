@@ -113,7 +113,7 @@ export default function HomePage() {
             lede="Jedes Projekt führt sein eigenes Protokoll. Was zuletzt passiert ist, steht direkt dort – mit Bildern und ohne Hochglanz."
           />
 
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mx-auto mt-14 grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, i) => (
               <ProjectCard key={project.slug} project={project} delay={i * 80} />
             ))}

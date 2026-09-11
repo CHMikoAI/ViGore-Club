@@ -2,12 +2,20 @@ import Link from "next/link";
 import Figure from "./Figure";
 import Reveal from "./Reveal";
 import StatusChip from "./StatusChip";
-import { formatDate, lastUpdatedAt, type Project } from "@/content/projects";
+import {
+  formatDate,
+  hasPage,
+  lastUpdatedAt,
+  type Project,
+} from "@/content/projects";
 
 /**
  * Eine Projektkarte, Inhalt auf der Mittelachse wie alles andere. Unten das
  * Datum des letzten Updates – das Lebenszeichen der Seite, seit das Journal
  * in den Projekten aufgegangen ist.
+ *
+ * Projekte ohne eigene Seite (Status "coming-soon") sehen gleich aus, sind
+ * aber kein Link – unten steht dann „Coming soon" statt „Ansehen".
  */
 export default function ProjectCard({
   project,
@@ -19,13 +27,11 @@ export default function ProjectCard({
   priority?: boolean;
 }) {
   const updated = lastUpdatedAt(project);
+  const linked = hasPage(project);
+  const shell = "card-lift group flex h-full flex-col border border-line bg-surface";
 
-  return (
-    <Reveal delay={delay} className="h-full">
-      <Link
-        href={`/projekte/${project.slug}`}
-        className="card-lift group flex h-full flex-col border border-line bg-surface"
-      >
+  const inner = (
+    <>
         <div className="overflow-hidden">
           <div className="card-zoom">
             <Figure
@@ -50,6 +56,7 @@ export default function ProjectCard({
           {/* mt-auto schiebt die Fusszeile nach unten, damit die Karten im
               Raster trotz unterschiedlich langer Texte bündig abschliessen. */}
           <div className="mt-auto flex flex-col items-center gap-2 pt-6">
+            {linked ? (
             <span className="inline-flex items-center gap-2 text-[0.6875rem] uppercase tracking-[0.16em] text-accent">
               Ansehen
               <svg
@@ -65,6 +72,11 @@ export default function ProjectCard({
                 <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </span>
+            ) : (
+              <span className="text-[0.6875rem] uppercase tracking-[0.16em] text-muted">
+                Coming soon
+              </span>
+            )}
 
             {updated ? (
               <time
@@ -76,7 +88,18 @@ export default function ProjectCard({
             ) : null}
           </div>
         </div>
-      </Link>
+    </>
+  );
+
+  return (
+    <Reveal delay={delay} className="h-full">
+      {linked ? (
+        <Link href={`/projekte/${project.slug}`} className={shell}>
+          {inner}
+        </Link>
+      ) : (
+        <div className={shell}>{inner}</div>
+      )}
     </Reveal>
   );
 }

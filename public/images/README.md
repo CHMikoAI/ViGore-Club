@@ -16,7 +16,10 @@ images/
 │
 ├─ allgemein/              Alles, was nicht zu einem bestimmten Projekt gehört
 │  ├─ club.jpg             Breites Bild auf der Seite „Der Club" (21:9)
-│  └─ gruender.jpg         Gianluca, Leo und Mirko (3:2)
+│  ├─ gruender.jpg         Gianluca, Leo und Mirko (3:2)
+│  ├─ logo.png             Das Logo im Header – freigestellt, NICHT die Quelle
+│  ├─ ViGORE_Logos.png     Quelldatei des Logos (weisser Hintergrund)
+│  └─ ViGORE_Favicon.png   Quelldatei des Favicons
 │
 └─ projekte/               Ein Ordner pro Projekt, benannt wie in der Adresse
    │
@@ -35,14 +38,16 @@ images/
    │  ├─ 2026-09-06-01.jpg
    │  └─ 2026-09-06-02.jpg
    │
-   ├─ padel/
-   │  └─ hero.jpg
-   │
    └─ erdnuss-challenge/
-      └─ hero.jpg
+      └─ hero.jpg          Liegt schon da – solange „Coming soon", nur die Karte
 ```
 
 Die Ordner sind schon angelegt, du kannst die Dateien direkt hineinlegen.
+
+**Zum Logo:** `logo.png` ist aus `ViGORE_Logos.png` erzeugt – freigestellt
+und beschnitten. Die Quelldatei hat einen deckend weissen Hintergrund und
+taugt nicht direkt für den Header. Falls das Logo je neu gezeichnet wird,
+muss `logo.png` neu erzeugt werden (Weiss → Transparenz, Rand wegschneiden).
 
 ### Die drei Sorten Bild bei einem Projekt
 

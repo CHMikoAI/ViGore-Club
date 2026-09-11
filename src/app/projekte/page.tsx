@@ -21,8 +21,8 @@ export const metadata: Metadata = {
   title: "Projekte",
   description:
     "Woran der ViGORE Club gerade arbeitet: eine Trüffelplantage in " +
-    "Graubünden, selbst gepresster Most, die Erdnuss-Challenge – und jede " +
-    "Woche Padel. Plus: was ein Projekt bei uns erfüllen muss.",
+    "Graubünden, selbst gepresster Most und bald die Erdnuss-Challenge. " +
+    "Plus: was ein Projekt bei uns erfüllen muss.",
 };
 
 /**
@@ -141,7 +141,7 @@ export default function ProjectsPage() {
             lede="Jedes Projekt führt sein eigenes Protokoll. Was zuletzt passiert ist, steht direkt dort – mit Bildern und ohne Hochglanz."
           />
 
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mx-auto mt-14 grid max-w-5xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {projects.map((project, i) => (
               <ProjectCard
                 key={project.slug}

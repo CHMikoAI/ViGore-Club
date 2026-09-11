@@ -8,21 +8,22 @@ import { ArrowLink, Container, Section, SectionHeader } from "@/components/ui";
 import {
   formatDate,
   getProject,
+  hasPage,
   projects,
   sortedUpdates,
 } from "@/content/projects";
 
 type Params = { params: Promise<{ slug: string }> };
 
-/** Alle Projektseiten werden beim Build fest erzeugt. */
+/** Alle Projektseiten werden beim Build fest erzeugt – Teaser ausgenommen. */
 export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
+  return projects.filter(hasPage).map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { slug } = await params;
   const project = getProject(slug);
-  if (!project) return {};
+  if (!project || !hasPage(project)) return {};
 
   return { title: project.title, description: project.summary };
 }
@@ -31,7 +32,7 @@ export default async function ProjectPage({ params }: Params) {
   const { slug } = await params;
   const project = getProject(slug);
 
-  if (!project) notFound();
+  if (!project || !hasPage(project)) notFound();
 
   const updates = sortedUpdates(project);
 

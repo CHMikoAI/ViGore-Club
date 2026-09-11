@@ -14,7 +14,11 @@
  *
  * ── Ein neues Projekt ──────────────────────────────────────────────────────
  * Einen Eintrag unten ergänzen. Es taucht automatisch auf /projekte, auf der
- * Startseite und unter /projekte/<slug> auf.
+ * Startseite und unter /projekte/<slug> auf. Mit Status "coming-soon" nur
+ * als Karte, ohne Seite.
+ *
+ * Padel ist bewusst KEIN Projekt – es ist ein Rhythmus und steht auf /club
+ * unter „Was fest im Kalender steht" (src/content/club.ts).
  *
  * ── Bilder ─────────────────────────────────────────────────────────────────
  * Jedes Projekt hat seinen eigenen Ordner unter public/images/projekte/<slug>/:
@@ -25,13 +29,12 @@
  * erwarteten Pfad. Datei ablegen, neu laden, fertig.
  */
 
-export type ProjectStatus = "laufend" | "bald" | "coming-soon" | "woechentlich";
+export type ProjectStatus = "laufend" | "bald" | "coming-soon";
 
 export const STATUS_LABELS: Record<ProjectStatus, string> = {
   laufend: "Laufend",
   bald: "Bald erhältlich",
-  "coming-soon": "In Vorbereitung",
-  woechentlich: "Jede Woche",
+  "coming-soon": "Coming soon",
 };
 
 /** Ein datierter Eintrag zu einem Projekt – das, was früher das Journal war. */
@@ -182,33 +185,8 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "padel",
-    title: "Padel",
-    tagline: "Jede Woche, fixer Termin",
-    status: "woechentlich",
-    summary:
-      "Kein Projekt, ein Rhythmus. Zwei Stunden auf dem Platz – und meistens " +
-      "der Ort, an dem die ehrlichen Gespräche anfangen.",
-    hero: "/images/projekte/padel/hero.jpg",
-    gallery: [],
-    intro: "Der unspektakulärste Termin im Club. Und wahrscheinlich der wichtigste.",
-    sections: [
-      {
-        heading: "Warum das hier steht",
-        body: [
-          "Grosse Projekte sind gut für den Zusammenhalt. Aber sie passieren nicht jede Woche.",
-          "Deshalb Padel. Ein fixer Termin, bei dem man nicht überlegen muss, ob man Lust hat – man geht hin. Zwei Stunden, in denen niemand etwas leisten muss.",
-          "Die ehrlichsten Gespräche entstehen selten dort, wo man sie plant. Meistens danach, wenn alle ausser Atem sind und die Fassade schon abgelegt ist.",
-        ],
-      },
-    ],
-    facts: [
-      { label: "Takt", value: "Wöchentlich" },
-      { label: "Ort", value: "Graubünden" },
-    ],
-    updates: [],
-  },
-  {
+    // Nur angeteasert: Status "coming-soon" heisst Karte ohne eigene Seite.
+    // Sobald es losgeht, Status ändern und Text unten ausformulieren.
     slug: "erdnuss-challenge",
     title: "Erdnuss-Challenge",
     tagline: "Gleiche Pflanze. Sechs Monate. Ein Sieger.",
@@ -236,6 +214,15 @@ export const projects: Project[] = [
     updates: [],
   },
 ];
+
+/**
+ * Projekte im Status "coming-soon" werden nur angeteasert: Karte in der
+ * Übersicht, aber keine eigene Seite. Sobald das Projekt läuft, den Status
+ * umstellen – die Seite erscheint dann von selbst.
+ */
+export function hasPage(project: Project): boolean {
+  return project.status !== "coming-soon";
+}
 
 export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
