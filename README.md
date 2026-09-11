@@ -129,15 +129,18 @@ Mehr ist nicht nötig. Details in `src/app/api/kontakt/route.ts`.
 
 ## Veröffentlichen (Vercel)
 
-1. Ordner zu einem Git-Repository machen und zu GitHub schieben.
-2. Auf [vercel.com](https://vercel.com) das Repository importieren – Next.js
-   wird automatisch erkannt, es sind keine Einstellungen nötig.
-3. Unter Settings → Domains `vigore-club.ch` und `www.vigore-club.ch`
-   hinzufügen und die DNS-Einträge beim Domain-Anbieter anpassen.
-4. Falls Mailversand gewünscht: die beiden Variablen von oben eintragen.
+Der Code liegt auf GitHub: https://github.com/CHMikoAI/ViGore-Club
 
-Vor dem Livegang lokal einmal `npm run build` laufen lassen – das findet
-Fehler, bevor es jemand anderes tut.
+1. Auf [vercel.com](https://vercel.com) mit GitHub anmelden und das
+   Repository `CHMikoAI/ViGore-Club` importieren – Next.js wird automatisch
+   erkannt, es sind keine Einstellungen nötig.
+2. Unter Settings → Domains `vigore-club.ch` und `www.vigore-club.ch`
+   hinzufügen und die DNS-Einträge beim Domain-Anbieter anpassen.
+3. Falls Mailversand gewünscht: die beiden Variablen von oben eintragen.
+
+Danach baut Vercel bei jedem Push auf `main` automatisch neu. Vor dem Push
+lokal einmal `npm run build` laufen lassen – das findet Fehler, bevor es
+jemand anderes tut.
 
 ---
 
