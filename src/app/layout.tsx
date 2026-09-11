@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 import { site } from "@/content/site";
@@ -58,6 +59,11 @@ export default function RootLayout({
           {children}
         </main>
         <SiteFooter />
+
+        {/* Vercel Web Analytics: zählt Seitenaufrufe ohne Cookies und ohne
+            Profile. Läuft nur auf Vercel – lokal bleibt es stumm. Erwähnt in
+            der Datenschutzerklärung unter „Webanalyse". */}
+        <Analytics />
       </body>
     </html>
   );

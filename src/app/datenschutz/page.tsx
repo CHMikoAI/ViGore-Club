@@ -12,6 +12,8 @@ import { site } from "@/content/site";
  *   • Formulare: bisher Google Forms, neu ein eigenes Formular auf dieser
  *     Seite. Der Abschnitt beschreibt jetzt den Versand per E-Mail (und
  *     Resend, sofern eingerichtet – siehe src/app/api/kontakt/route.ts).
+ *   • Webanalyse: neu Vercel Web Analytics (Abschnitt 4). Ohne Cookies und
+ *     ohne Profile – deshalb kein Cookie-Banner nötig.
  *
  * Wenn ihr am Ende doch woanders hostet oder auf Resend verzichtet, muss
  * dieser Text entsprechend angepasst werden.
@@ -97,8 +99,38 @@ export default function DatenschutzPage() {
             </section>
 
             <section>
+              <h2 className="display-3 text-on-surface">4. Webanalyse</h2>
+              <p className="mt-4">
+                Um zu verstehen, wie diese Website genutzt wird, setzen wir
+                Vercel Web Analytics ein, einen Dienst der Vercel Inc., USA.
+                Erfasst werden Seitenaufrufe sowie technische Angaben wie
+                Gerätetyp, Browser, Bildschirmgrösse und das Land, aus dem der
+                Aufruf kommt.
+              </p>
+              <p className="mt-4">
+                Dabei werden keine Cookies gesetzt und keine
+                Nutzungsprofile über mehrere Websites hinweg erstellt. Die
+                IP-Adresse wird nicht gespeichert; Besucher werden nur für die
+                Dauer eines Tages über einen nicht rückführbaren Hashwert
+                unterschieden. Die Auswertung dient ausschliesslich dazu, die
+                Website zu verbessern.
+              </p>
+              <p className="mt-4">
+                Weitere Informationen:{" "}
+                <a
+                  href="https://vercel.com/docs/analytics/privacy-policy"
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="link-quiet text-accent"
+                >
+                  vercel.com/docs/analytics/privacy-policy
+                </a>
+              </p>
+            </section>
+
+            <section>
               <h2 className="display-3 text-on-surface">
-                4. Kontakt- und Vormerkformular
+                5. Kontakt- und Vormerkformular
               </h2>
               <p className="mt-4">
                 Auf dieser Website kannst du uns über ein Formular eine
@@ -117,7 +149,7 @@ export default function DatenschutzPage() {
 
             <section>
               <h2 className="display-3 text-on-surface">
-                5. Weitergabe von Daten
+                6. Weitergabe von Daten
               </h2>
               <p className="mt-4">
                 Wir geben Personendaten nicht an Dritte weiter, ausser wenn dies
@@ -128,7 +160,7 @@ export default function DatenschutzPage() {
             </section>
 
             <section>
-              <h2 className="display-3 text-on-surface">6. Speicherdauer</h2>
+              <h2 className="display-3 text-on-surface">7. Speicherdauer</h2>
               <p className="mt-4">
                 Personendaten werden nur so lange gespeichert, wie dies für den
                 jeweiligen Zweck erforderlich ist oder gesetzliche
@@ -137,7 +169,7 @@ export default function DatenschutzPage() {
             </section>
 
             <section>
-              <h2 className="display-3 text-on-surface">7. Deine Rechte</h2>
+              <h2 className="display-3 text-on-surface">8. Deine Rechte</h2>
               <p className="mt-4">
                 Du hast im Rahmen des geltenden Datenschutzrechts insbesondere
                 das Recht auf:
@@ -167,7 +199,7 @@ export default function DatenschutzPage() {
             </section>
 
             <section>
-              <h2 className="display-3 text-on-surface">8. Änderungen</h2>
+              <h2 className="display-3 text-on-surface">9. Änderungen</h2>
               <p className="mt-4">
                 Wir behalten uns vor, diese Datenschutzerklärung bei Bedarf
                 anzupassen, insbesondere bei Änderungen der eingesetzten Dienste
