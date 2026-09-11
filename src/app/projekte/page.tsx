@@ -1,15 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ProjectCard from "@/components/ProjectCard";
+import ProjectsCta from "@/components/ProjectsCta";
 import Reveal from "@/components/Reveal";
 import ValueGrid from "@/components/ValueGrid";
-import {
-  ArrowLink,
-  Container,
-  OutlineButton,
-  Section,
-  SectionHeader,
-} from "@/components/ui";
+import { ArrowLink, Container, Section, SectionHeader } from "@/components/ui";
 import {
   criteria,
   formatDate,
@@ -170,24 +165,7 @@ export default function ProjectsPage() {
         </Container>
       </Section>
 
-      {/* ── Schluss · Ansprache ──────────────────────────────────────────
-          Breiter als auf der Startseite: hier darf sich auch melden, wer
-          eine Idee hat, ohne schon Mitglied zu sein. Deshalb „Melde dich"
-          statt „Mitglied werden". */}
-      <Section band="espresso">
-        <Container>
-          <SectionHeader
-            label="Sei dabei!"
-            heading="Dabei sein – oder selbst etwas anstossen?"
-            lede="Wenn du bei einem Projekt mitanpacken willst oder eine Idee hast, die zu uns passt: melde dich bei uns."
-            action={
-              <OutlineButton href="/kontakt" tone="light">
-                Melde dich
-              </OutlineButton>
-            }
-          />
-        </Container>
-      </Section>
+      <ProjectsCta />
     </>
   );
 }

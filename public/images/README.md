@@ -25,18 +25,16 @@ images/
    │
    ├─ trueffelplantage/
    │  ├─ hero.jpg          Kopfbild – auf der Karte und oben auf der Seite
-   │  ├─ galerie-01.jpg    Galerie unter dem Text
-   │  ├─ galerie-02.jpg
-   │  ├─ galerie-03.jpg
-   │  └─ 2026-07-19-01.jpg Bilder zu einem Update, mit dem Datum des Updates
+   │  ├─ 2026-07-19-01.jpg Bilder zu einem Update, mit dem Datum des Updates
+   │  ├─ 2026-07-19-02.jpg
+   │  └─ 2026-07-19-03.jpg
    │
    ├─ most/
    │  ├─ hero.jpg
-   │  ├─ galerie-01.jpg
-   │  ├─ galerie-02.jpg
-   │  ├─ galerie-03.jpg
-   │  ├─ 2026-09-06-01.jpg
-   │  └─ 2026-09-06-02.jpg
+   │  ├─ 2026-09-05-01.jpg Der Mosterei-Tag, neun Bilder in der Reihenfolge
+   │  ├─ …                 des Tages
+   │  ├─ 2026-09-05-09.jpg
+   │  └─ 2026-09-08-01.jpg Abgefüllt – die Kisten auf dem Steinbock
    │
    └─ erdnuss-challenge/
       └─ hero.jpg          Liegt schon da – solange „Coming soon", nur die Karte
@@ -49,13 +47,17 @@ und beschnitten. Die Quelldatei hat einen deckend weissen Hintergrund und
 taugt nicht direkt für den Header. Falls das Logo je neu gezeichnet wird,
 muss `logo.png` neu erzeugt werden (Weiss → Transparenz, Rand wegschneiden).
 
-### Die drei Sorten Bild bei einem Projekt
+### Die zwei Sorten Bild bei einem Projekt
 
 | Datei | Wo sie erscheint | Format |
 |---|---|---|
 | `hero.jpg` | Projektkarte (hochkant beschnitten) **und** oben auf der Projektseite (sehr breit beschnitten) | Querformat, mit Luft am Rand |
-| `galerie-01.jpg` … | Galerie unter dem Text der Projektseite | Hochkant (4:5) |
-| `JJJJ-MM-TT-01.jpg` … | Bei einem Update im Verlauf – das Datum ist das des Updates | Querformat (4:3) |
+| `JJJJ-MM-TT-01.jpg` … | Beim Update im Verlauf – das Datum ist das des Updates | Hochkant (4:5); ein einzelnes Bild wird quer (4:3) gezeigt |
+
+Es gibt bewusst keine Galerie neben dem Verlauf: **jedes Foto gehört zu einem
+Update.** Wer Fotos von einem Tag hat, schreibt ein kurzes Update zu diesem Tag
+und hängt sie dort an. So bleibt die Seite chronologisch und wiederholt sich
+nicht.
 
 ### Ein neues Projekt
 

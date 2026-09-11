@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Figure from "@/components/Figure";
 import InquiryForm from "@/components/InquiryForm";
+import ProjectsCta from "@/components/ProjectsCta";
 import Reveal from "@/components/Reveal";
 import StatusChip from "@/components/StatusChip";
 import { ArrowLink, Container, Section, SectionHeader } from "@/components/ui";
@@ -28,6 +29,20 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   return { title: project.title, description: project.summary };
 }
 
+/**
+ * Eine Projektseite. Auf allen Projekten gleich aufgebaut:
+ *
+ *   Kopf          Status, Titel, ein Satz
+ *   Bild          Das Kopfbild
+ *   Fakten        Eine Reihe – nur, was der Kopf nicht schon sagt
+ *   Worum es geht Zwei Absätze. Was und warum, keine Ereignisse.
+ *   [Vormerken]   Nur beim Most
+ *   Verlauf       Was passiert ist, datiert, neueste zuerst – mit den Fotos
+ *   Schluss       Wortgleich mit der Projektübersicht
+ *
+ * Der feste Teil ist kurz, der Verlauf wächst. Weil jedes Ereignis nur dort
+ * steht und jedes Foto zu einem Ereignis gehört, wiederholt sich nichts.
+ */
 export default async function ProjectPage({ params }: Params) {
   const { slug } = await params;
   const project = getProject(slug);
@@ -38,6 +53,7 @@ export default async function ProjectPage({ params }: Params) {
 
   return (
     <>
+      {/* ── Kopf ─────────────────────────────────────────────────────────── */}
       <header className="bg-cream pb-12 pt-16 text-center md:pt-24">
         <Container>
           <Reveal>
@@ -46,8 +62,8 @@ export default async function ProjectPage({ params }: Params) {
             </div>
           </Reveal>
 
-          {/* Die Statusmarke steht zwischen den Ornamentlinien – an derselben
-              Stelle, an der sonst die Abschnittsmarke sitzt. */}
+          {/* Die Statusmarke sitzt zwischen den Ornamentlinien – an derselben
+              Stelle, an der sonst die Abschnittsmarke steht. */}
           <Reveal delay={80}>
             <div className="ornament mt-8">
               <span aria-hidden className="ornament-rule ornament-rule--left" />
@@ -61,14 +77,8 @@ export default async function ProjectPage({ params }: Params) {
           </Reveal>
 
           <Reveal delay={200}>
-            <p className="mt-3 text-lg text-accent">{project.tagline}</p>
+            <p className="lede mx-auto mt-6 max-w-2xl">{project.intro}</p>
           </Reveal>
-
-          {project.intro ? (
-            <Reveal delay={260}>
-              <p className="lede mx-auto mt-8 max-w-2xl">{project.intro}</p>
-            </Reveal>
-          ) : null}
         </Container>
       </header>
 
@@ -80,16 +90,10 @@ export default async function ProjectPage({ params }: Params) {
           priority
           sizes="(max-width: 1400px) 100vw, 1400px"
         />
-      </Container>
 
-      {/* ── Fakten ──────────────────────────────────────────────────────────
-          In der zentrierten Fassung keine Randspalte, sondern eine mittige
-          Reihe unter dem Kopfbild – eine Spalte am Rand hätte die Achse
-          gebrochen. */}
-      {project.facts.length > 0 ? (
-        <Container>
+        {project.facts.length > 0 ? (
           <Reveal>
-            <dl className="mx-auto mt-14 flex max-w-4xl flex-wrap justify-center gap-x-14 gap-y-8 border-y border-line py-8 text-center">
+            <dl className="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-x-14 gap-y-6 text-center">
               {project.facts.map((fact) => (
                 <div key={fact.label}>
                   <dt className="text-[0.6875rem] uppercase tracking-[0.16em] text-muted">
@@ -100,56 +104,28 @@ export default async function ProjectPage({ params }: Params) {
               ))}
             </dl>
           </Reveal>
-        </Container>
-      ) : null}
+        ) : null}
+      </Container>
 
-      {/* ── Text ────────────────────────────────────────────────────────────
-          Überschriften auf der Achse, Fliesstext linksbündig in schmaler
-          Spalte – zentrierte Absätze wären über mehrere Zeilen unlesbar. */}
-      <Section band="cream">
+      {/* ── Worum es geht ────────────────────────────────────────────────── */}
+      <Section band="paper">
         <Container>
-          <div className="mx-auto max-w-2xl">
-            {project.sections.map((section, i) => (
-              <div key={section.heading} className={i > 0 ? "mt-16" : ""}>
-                <Reveal>
-                  <h2 className="display-3 text-center">{section.heading}</h2>
-                </Reveal>
-                <div className="prose-club mt-6 text-[1.0625rem] leading-relaxed">
-                  {section.body.map((paragraph, j) => (
-                    <Reveal key={j} delay={j * 60}>
-                      <p>{paragraph}</p>
-                    </Reveal>
-                  ))}
-                </div>
-              </div>
+          <SectionHeader label="Worum es geht" />
+
+          <div className="prose-club mx-auto mt-10 max-w-2xl text-center text-[1.0625rem] leading-relaxed">
+            {project.about.map((paragraph, i) => (
+              <Reveal key={i} delay={i * 70}>
+                <p>{paragraph}</p>
+              </Reveal>
             ))}
           </div>
         </Container>
       </Section>
 
-      {/* ── Galerie ─────────────────────────────────────────────────────── */}
-      {project.gallery.length > 0 ? (
-        <Section band="paper" className="!py-16 md:!py-20">
-          <Container>
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {project.gallery.map((image, i) => (
-                <Figure
-                  key={image}
-                  src={image}
-                  alt={`${project.title} – Bild ${i + 1}`}
-                  ratio="4/5"
-                  delay={i * 90}
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-              ))}
-            </div>
-          </Container>
-        </Section>
-      ) : null}
-
-      {/* ── Vormerkung ──────────────────────────────────────────────────
-          Nur beim Most: kein Shop, nur eine Adresse für die Nachricht,
-          sobald es so weit ist. */}
+      {/* ── Vormerken · nur beim Most ────────────────────────────────────
+          Kein Shop, nur eine Adresse für die Nachricht, sobald es so weit
+          ist. Sitzt vor dem Verlauf, damit das dunkle Band nicht direkt auf
+          den Espresso des Schlusses stösst. */}
       {project.slug === "most" ? (
         <Section band="dark">
           <Container>
@@ -159,8 +135,8 @@ export default async function ProjectPage({ params }: Params) {
               lede="Wir melden uns, sobald der Most bereitsteht – mit Preis und allem, was du wissen musst. Unverbindlich, keine Vorauszahlung, kein Newsletter."
             />
 
-            {/* Das Formular selbst bleibt linksbündig: Beschriftungen über
-                Feldern liest man am Rand, nicht auf einer Achse. */}
+            {/* Das Formular bleibt linksbündig: Beschriftungen über Feldern
+                liest man am Rand, nicht auf einer Achse. */}
             <Reveal delay={200}>
               <div className="mx-auto mt-12 max-w-xl text-left">
                 <InquiryForm topic="most" />
@@ -170,15 +146,15 @@ export default async function ProjectPage({ params }: Params) {
         </Section>
       ) : null}
 
-      {/* ── Was seither passiert ist ─────────────────────────────────────
-          Das frühere Journal, jetzt beim Projekt. Neueste zuerst. Statt des
-          Zeitstrahls am linken Rand trennt hier eine Linie auf der Achse. */}
+      {/* ── Verlauf ──────────────────────────────────────────────────────
+          Das Lebendige der Seite. Neueste zuerst; Fotos stehen beim Eintrag,
+          zu dem sie gehören. */}
       {updates.length > 0 ? (
         <Section band="cream" id="verlauf">
           <Container>
-            <SectionHeader label="Was seither passiert ist" />
+            <SectionHeader label="Verlauf" />
 
-            <div className="mx-auto mt-14 max-w-2xl">
+            <div className="mx-auto mt-14 max-w-3xl">
               {updates.map((update, i) => (
                 <article
                   key={`${update.date}-${update.title}`}
@@ -192,9 +168,9 @@ export default async function ProjectPage({ params }: Params) {
                       >
                         {formatDate(update.date)}
                       </time>
-                      <h3 className="display-3 mt-2">{update.title}</h3>
+                      <h2 className="display-3 mt-2">{update.title}</h2>
                     </div>
-                    <div className="prose-club mt-6 text-[1.0625rem] leading-relaxed">
+                    <div className="prose-club mx-auto mt-6 max-w-2xl text-[1.0625rem] leading-relaxed">
                       {update.body.map((paragraph, j) => (
                         <p key={j}>{paragraph}</p>
                       ))}
@@ -202,15 +178,23 @@ export default async function ProjectPage({ params }: Params) {
                   </Reveal>
 
                   {update.images.length > 0 ? (
-                    <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                    <div
+                      className={`mt-8 grid gap-4 ${
+                        update.images.length === 1
+                          ? "mx-auto max-w-xl"
+                          : update.images.length === 2
+                            ? "sm:grid-cols-2"
+                            : "sm:grid-cols-2 md:grid-cols-3"
+                      }`}
+                    >
                       {update.images.map((image, j) => (
                         <Figure
                           key={image}
                           src={image}
                           alt={`${update.title} – Bild ${j + 1}`}
-                          ratio="4/3"
-                          delay={j * 80}
-                          sizes="(max-width: 640px) 100vw, 50vw"
+                          ratio={update.images.length === 1 ? "4/3" : "4/5"}
+                          delay={j * 70}
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                         />
                       ))}
                     </div>
@@ -221,6 +205,8 @@ export default async function ProjectPage({ params }: Params) {
           </Container>
         </Section>
       ) : null}
+
+      <ProjectsCta />
     </>
   );
 }

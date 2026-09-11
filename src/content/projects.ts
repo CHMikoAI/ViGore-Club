@@ -1,10 +1,16 @@
 /**
  * Die Projekte des Clubs – und alles, was dazugehört.
  *
- * Es gibt keinen getrennten Journal-Bereich mehr. Was passiert, steht als
- * Update direkt beim jeweiligen Projekt. Ein Projekt erzählt damit seine
- * eigene Geschichte von oben nach unten: worum es geht, und was seither
- * passiert ist.
+ * Jedes Projekt hat zwei Teile:
+ *
+ *   about     Worum es geht – zwei Absätze, nicht mehr. Was das Projekt ist
+ *             und warum wir es machen. KEINE Ereignisse, die gehören unten hin.
+ *   updates   Was passiert ist, datiert, neueste zuerst. Hier steht die
+ *             Geschichte, und hier hängen die Fotos.
+ *
+ * Diese Trennung ist der Grund, warum sich nichts wiederholt: ein Ereignis
+ * steht genau einmal, als Update. Es gibt bewusst keine Galerie neben den
+ * Updates – jedes Foto gehört zu einem Moment, und der Moment ist ein Update.
  *
  * ── Ein Update schreiben ───────────────────────────────────────────────────
  * Beim passenden Projekt oben in `updates` einen Eintrag ergänzen. Sortiert
@@ -23,7 +29,6 @@
  * ── Bilder ─────────────────────────────────────────────────────────────────
  * Jedes Projekt hat seinen eigenen Ordner unter public/images/projekte/<slug>/:
  *   hero.jpg              Kopfbild (Karte und Detailseite)
- *   galerie-01.jpg …      Galerie auf der Detailseite
  *   2026-09-06-01.jpg …   Bilder zu einem Update, mit dem Datum des Updates
  * Solange eine Datei fehlt, zeigt die Seite einen Platzhalter mit dem
  * erwarteten Pfad. Datei ablegen, neu laden, fertig.
@@ -55,12 +60,11 @@ export type Project = {
   /** Der Satz auf der Karte in der Übersicht. */
   summary: string;
   hero: string;
-  gallery: string[];
-  /** Vorspann auf der Detailseite. */
+  /** Ein Satz unter dem Titel der Detailseite. */
   intro: string;
-  /** Der Fliesstext, Abschnitt für Abschnitt. */
-  sections: { heading: string; body: string[] }[];
-  /** Kleine Faktenspalte neben dem Text. Leer lassen ist erlaubt. */
+  /** Worum es geht – zwei Absätze, keine Ereignisse. */
+  about: string[];
+  /** Kurze Faktenreihe unter dem Kopfbild. Leer lassen ist erlaubt. */
   facts: { label: string; value: string }[];
   /** Was seither passiert ist. Neueste zuerst – die Sortierung macht der Code. */
   updates: Update[];
@@ -76,37 +80,12 @@ export const projects: Project[] = [
       "Unser erstes Projekt. Eine Plantage in Graubünden, von Hand gepflanzt – " +
       "mit einem Ergebnis, auf das wir Jahre warten.",
     hero: "/images/projekte/trueffelplantage/hero.jpg",
-    gallery: [
-      "/images/projekte/trueffelplantage/galerie-01.jpg",
-      "/images/projekte/trueffelplantage/galerie-02.jpg",
-      "/images/projekte/trueffelplantage/galerie-03.jpg",
-    ],
     intro: "Trüffel belohnen keine Ungeduld. Genau deshalb standen sie am Anfang.",
-    sections: [
-      {
-        heading: "Warum ausgerechnet Trüffel",
-        body: [
-          "Wir wollten kein Projekt, das man an einem Wochenende abhaken kann. Sondern eines, bei dem sich Sorgfalt erst Jahre später auszeigt – und bei dem man in der Zwischenzeit trotzdem regelmässig hinfahren muss.",
-          "Eine Trüffelplantage ist genau das. Zwischen dem Setzen und der ersten Ernte liegt eine lange Strecke, auf der es nichts zu feiern gibt. Wer da dranbleibt, meint es ernst.",
-        ],
-      },
-      {
-        heading: "Was steht",
-        body: [
-          "Eine Fläche in Graubünden, Boden untersucht und vorbereitet, Bäume von Hand gesetzt. An einem Wochenende, an das sich jeder erinnert.",
-          "Seither gehört die Plantage zum Takt des Clubs. Einer fährt raus, schaut nach dem Rechten, schickt Bilder in die Gruppe. Unspektakulär – und genau deshalb verbindend.",
-        ],
-      },
-      {
-        heading: "Wie es weitergeht",
-        body: [
-          "Die nächsten Jahre gehören dem Pflegen und dem Beobachten. Was passiert, halten wir unten fest. Auch das, was schiefgeht.",
-          "Und irgendwann steht die erste Ernte an. Bündner Trüffel, von uns gesetzt.",
-        ],
-      },
+    about: [
+      "Wir wollten kein Projekt, das man an einem Wochenende abhaken kann. Eine Trüffelplantage ist das Gegenteil: Zwischen dem Setzen und der ersten Ernte liegen Jahre, in denen es nichts zu feiern gibt – und in denen man trotzdem regelmässig hinfahren muss. Wer da dranbleibt, meint es ernst.",
+      "Eine Fläche in Graubünden, Boden untersucht, Bäume von Hand gesetzt. Seither gehört die Plantage zum Takt des Clubs: Einer fährt raus, schaut nach dem Rechten, schickt Bilder in die Gruppe. Irgendwann steht die erste Ernte an – Bündner Trüffel, von uns gesetzt.",
     ],
     facts: [
-      { label: "Stand", value: "Laufend" },
       { label: "Ort", value: "Graubünden" },
       { label: "Rolle", value: "Erstes Clubprojekt" },
       { label: "Horizont", value: "Mehrere Jahre" },
@@ -119,7 +98,11 @@ export const projects: Project[] = [
           "Es gibt Projekte, bei denen man nach einem Jahr etwas vorzeigen kann. Und es gibt Trüffel.",
           "Wir waren draussen, haben nach den Bäumen geschaut, dokumentiert, nachkorrigiert. Von aussen betrachtet: wenig. Für uns: der Beleg, dass wir immer noch hinfahren, auch wenn niemand zuschaut.",
         ],
-        images: [],
+        images: [
+          "/images/projekte/trueffelplantage/2026-07-19-01.jpg",
+          "/images/projekte/trueffelplantage/2026-07-19-02.jpg",
+          "/images/projekte/trueffelplantage/2026-07-19-03.jpg",
+        ],
       },
     ],
   },
@@ -132,39 +115,14 @@ export const projects: Project[] = [
       "Ein Wochenende in der Mosterei. Nach alter Art gepresst, bald im " +
       "Verkauf – der Erlös geht in die Clubkasse.",
     hero: "/images/projekte/most/hero.jpg",
-    gallery: [
-      "/images/projekte/most/galerie-01.jpg",
-      "/images/projekte/most/galerie-02.jpg",
-      "/images/projekte/most/galerie-03.jpg",
-    ],
     intro:
       "Am Morgen auf der Wiese, am Nachmittag an der Presse. Ein Tag, an dem " +
       "niemand aufs Handy geschaut hat.",
-    sections: [
-      {
-        heading: "Das Wochenende",
-        body: [
-          "Zu Gast in einer Mosterei, den Tag verbracht wie früher: vormittags Äpfel gelesen – gebückt, geschleppt, sortiert. Nachmittags an die Presse.",
-          "Gemostet wurde nach traditioneller Art. Kein Knopfdruck, sondern Handarbeit, bei der man sieht und riecht, was passiert. Am Abend stand da etwas, das vorher nicht existiert hat.",
-        ],
-      },
-      {
-        heading: "Warum das kein Ausflug war",
-        body: [
-          "Gemeinsame Arbeit macht mit einer Gruppe etwas, das gemeinsames Reden nicht schafft. Man steht nebeneinander statt gegenüber, die Hände sind beschäftigt – und plötzlich laufen Gespräche, die am Tisch nie zustande gekommen wären.",
-          "Das Projekt ist der Anlass. Was dabei zwischen uns entsteht, ist der Ertrag.",
-        ],
-      },
-      {
-        heading: "Bald erhältlich",
-        body: [
-          "Den Most verkaufen wir als Club. Der Erlös fliesst in die Kasse und damit direkt ins nächste Projekt.",
-          "Wir sind in den letzten Zügen. Wenn du welchen willst, trag dich unten ein – wir melden uns, sobald er bereitsteht.",
-        ],
-      },
+    about: [
+      "Ein Wochenende in einer Mosterei: vormittags Äpfel gelesen, nachmittags nach alter Art gepresst – Handarbeit, bei der man sieht und riecht, was passiert. Am Abend stand da etwas, das vorher nicht existiert hat.",
+      "Den Most verkaufen wir als Club, der Erlös fliesst in die Kasse und damit ins nächste Projekt. Und nebenbei: Wer stundenlang nebeneinander Äpfel schleppt, redet anders miteinander als am Tisch. Das war der eigentliche Grund.",
     ],
     facts: [
-      { label: "Stand", value: "Bald erhältlich" },
       { label: "Machart", value: "Traditionell gepresst" },
       { label: "Erlös", value: "Geht in die Clubkasse" },
     ],
@@ -180,16 +138,25 @@ export const projects: Project[] = [
         images: ["/images/projekte/most/2026-09-08-01.jpg"],
       },
       {
-        date: "2026-09-06",
+        // Datum aus den Kameradaten der Fotos: Samstag, 5. September.
+        date: "2026-09-05",
         title: "Ein Tag in der Mosterei",
         body: [
           "Der Wecker war unangenehm früh, das Wetter unentschieden. Trotzdem standen alle da.",
-          "Äpfel lesen ist eine Arbeit, die niemanden beeindruckt und trotzdem gemacht werden muss. Nach zwei Stunden redet man anders miteinander als nach zwei Stunden am Tisch.",
-          "Am Abend stand der Most da. Und die Erkenntnis, dass gemeinsame Arbeit eine Gruppe schneller zusammenbringt als jedes Gespräch über Zusammenhalt.",
+          "Äpfel lesen ist eine Arbeit, die niemanden beeindruckt und trotzdem gemacht werden muss. Nach zwei Stunden redet man anders miteinander als nach zwei Stunden am Tisch. Am Abend stand der Most da.",
         ],
+        // Neun Bilder in der Reihenfolge des Tages: im Baum, Obstgarten, Kisten,
+        // Feldrand, Kofferraum, die Presse, Beladen, Most draussen, Most in Kisten.
         images: [
-          "/images/projekte/most/2026-09-06-01.jpg",
-          "/images/projekte/most/2026-09-06-02.jpg",
+          "/images/projekte/most/2026-09-05-01.jpg",
+          "/images/projekte/most/2026-09-05-02.jpg",
+          "/images/projekte/most/2026-09-05-03.jpg",
+          "/images/projekte/most/2026-09-05-04.jpg",
+          "/images/projekte/most/2026-09-05-05.jpg",
+          "/images/projekte/most/2026-09-05-06.jpg",
+          "/images/projekte/most/2026-09-05-07.jpg",
+          "/images/projekte/most/2026-09-05-08.jpg",
+          "/images/projekte/most/2026-09-05-09.jpg",
         ],
       },
     ],
@@ -205,22 +172,12 @@ export const projects: Project[] = [
       "Jeder zieht dieselbe Pflanze auf. Nach einem halben Jahr wird " +
       "verglichen. Mehr verraten wir noch nicht.",
     hero: "/images/projekte/erdnuss-challenge/hero.jpg",
-    gallery: [],
     intro: "Gleicher Start für alle. Den Rest macht jeder selbst.",
-    sections: [
-      {
-        heading: "Was geplant ist",
-        body: [
-          "Jeder im Club bekommt dieselbe Ausgangslage: eine Erdnusspflanze. Was daraus wird, hängt allein daran, wer sich wie kümmert. Nach sechs Monaten wird verglichen.",
-          "Wir begleiten das öffentlich – mit allem, was dazugehört: den stolzen Zwischenständen und den Pflanzen, die es nicht geschafft haben.",
-          "Details folgen.",
-        ],
-      },
+    about: [
+      "Jeder im Club bekommt dieselbe Ausgangslage: eine Erdnusspflanze. Was daraus wird, hängt allein daran, wer sich wie kümmert. Nach sechs Monaten wird verglichen.",
+      "Wir begleiten das öffentlich – mit allem, was dazugehört: den stolzen Zwischenständen und den Pflanzen, die es nicht geschafft haben.",
     ],
-    facts: [
-      { label: "Stand", value: "In Vorbereitung" },
-      { label: "Dauer", value: "Sechs Monate" },
-    ],
+    facts: [{ label: "Dauer", value: "Sechs Monate" }],
     updates: [],
   },
 ];
