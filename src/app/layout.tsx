@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import SiteFooter from "@/components/SiteFooter";
 import SiteHeader from "@/components/SiteHeader";
 import { site } from "@/content/site";
@@ -60,10 +61,12 @@ export default function RootLayout({
         </main>
         <SiteFooter />
 
-        {/* Vercel Web Analytics: zählt Seitenaufrufe ohne Cookies und ohne
-            Profile. Läuft nur auf Vercel – lokal bleibt es stumm. Erwähnt in
+        {/* Vercel Web Analytics zählt Seitenaufrufe, Speed Insights misst die
+            Ladezeiten echter Besuche. Beides ohne Cookies und ohne Profile,
+            beides läuft nur auf Vercel – lokal bleiben sie stumm. Erwähnt in
             der Datenschutzerklärung unter „Webanalyse". */}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
