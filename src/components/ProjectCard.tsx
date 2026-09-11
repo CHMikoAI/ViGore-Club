@@ -14,8 +14,11 @@ import {
  * Datum des letzten Updates – das Lebenszeichen der Seite, seit das Journal
  * in den Projekten aufgegangen ist.
  *
- * Projekte ohne eigene Seite (Status "coming-soon") sehen gleich aus, sind
- * aber kein Link – unten steht dann „Coming soon" statt „Ansehen".
+ * Projekte ohne eigene Seite (Status "coming-soon") sind auf den ersten Blick
+ * als „noch nicht" erkennbar: das Bild ist entsättigt und aufgehellt, mitten
+ * darauf steht das Ornament „Coming soon", der Rahmen ist gestrichelt wie bei
+ * den Bildplatzhaltern. Die Karte ist kein Link und hebt sich beim Überfahren
+ * nicht.
  */
 export default function ProjectCard({
   project,
@@ -28,12 +31,14 @@ export default function ProjectCard({
 }) {
   const updated = lastUpdatedAt(project);
   const linked = hasPage(project);
-  const shell = "card-lift group flex h-full flex-col border border-line bg-surface";
+  const shell = linked
+    ? "card-lift group flex h-full flex-col border border-line bg-surface"
+    : "flex h-full flex-col border border-dashed border-line bg-surface";
 
   const inner = (
     <>
-        <div className="overflow-hidden">
-          <div className="card-zoom">
+        <div className="relative overflow-hidden">
+          <div className={linked ? "card-zoom" : "grayscale"}>
             <Figure
               src={project.hero}
               alt={project.title}
@@ -43,6 +48,18 @@ export default function ProjectCard({
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           </div>
+
+          {/* Der Schleier über dem Bild nimmt ihm die Farbe und die Gegenwart;
+              das Ornament darauf sagt, warum. */}
+          {!linked ? (
+            <div className="absolute inset-0 flex items-center justify-center bg-cream/60">
+              <div className="ornament">
+                <span aria-hidden className="ornament-rule ornament-rule--left" />
+                <span className="eyebrow text-espresso">Coming soon</span>
+                <span aria-hidden className="ornament-rule ornament-rule--right" />
+              </div>
+            </div>
+          ) : null}
         </div>
 
         <div className="flex flex-1 flex-col items-center px-5 pb-6 pt-5 text-center">
@@ -73,9 +90,7 @@ export default function ProjectCard({
               </svg>
             </span>
             ) : (
-              <span className="text-[0.6875rem] uppercase tracking-[0.16em] text-muted">
-                Coming soon
-              </span>
+              <span aria-hidden />
             )}
 
             {updated ? (
