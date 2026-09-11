@@ -173,7 +173,7 @@ export default async function ProjectPage({ params }: Params) {
           Das frühere Journal, jetzt beim Projekt. Neueste zuerst. Statt des
           Zeitstrahls am linken Rand trennt hier eine Linie auf der Achse. */}
       {updates.length > 0 ? (
-        <Section band="cream">
+        <Section band="cream" id="verlauf">
           <Container>
             <SectionHeader label="Was seither passiert ist" />
 

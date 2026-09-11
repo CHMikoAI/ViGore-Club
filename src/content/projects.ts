@@ -257,3 +257,50 @@ export function formatDate(iso: string): string {
     timeZone: "UTC",
   });
 }
+
+/** Ein Update samt dem Projekt, zu dem es gehört. */
+export type UpdateWithProject = Update & { project: Project };
+
+/**
+ * Die neuesten Updates über alle Projekte hinweg – für „Aktuelles" auf der
+ * Projektübersicht. Solange es wenige gibt, zeigt die Seite eben wenige;
+ * das ist ehrlicher als Füllmaterial.
+ */
+export function latestUpdates(limit = 3): UpdateWithProject[] {
+  return projects
+    .flatMap((project) => project.updates.map((update) => ({ ...update, project })))
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, limit);
+}
+
+/**
+ * Woran wir neue Ideen messen. Nicht jede wird ein Projekt – damit eine
+ * durchkommt, muss sie zu dem passen, worauf wir uns verlassen, und zu dem,
+ * was uns Freude macht.
+ */
+export const criteria: { title: string; body: string }[] = [
+  {
+    title: "Sinnvoll",
+    body: "Am Ende soll etwas dastehen, das jemand braucht oder das bleibt. Beschäftigung um der Beschäftigung willen haben wir genug.",
+  },
+  {
+    title: "Nachhaltig",
+    body: "Gedacht für Jahre, nicht für ein Wochenende. Und wenn es doch kurz ist, dann ohne Schaden für Ort und Leute.",
+  },
+  {
+    title: "Macht Freude",
+    body: "Wir machen das freiwillig und nach Feierabend. Wenn es keinen Spass macht, machen wir es nicht – so einfach.",
+  },
+  {
+    title: "Mit Leidenschaft",
+    body: "Mindestens einer von uns muss dafür brennen. Sonst trägt es niemand durch die zähe Phase, und die kommt immer.",
+  },
+  {
+    title: "Etwas Neues",
+    body: "Wir wollen dabei etwas lernen, das wir vorher nicht konnten. Trüffel setzen konnte vorher auch keiner.",
+  },
+  {
+    title: "Weg vom Alltag",
+    body: "Idealerweise hat es nichts mit dem zu tun, womit wir unser Geld verdienen. Der Kopf soll anders arbeiten als im Büro.",
+  },
+];
