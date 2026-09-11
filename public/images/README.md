@@ -89,6 +89,12 @@ rüberkommt. Ein paar Hinweise, damit sie zusammenpassen:
 ## Grösse und Format
 
 - **JPG** für Fotos, **PNG** nur wenn Transparenz gebraucht wird.
+- **Kein HEIC.** iPhones speichern Fotos standardmässig als HEIC – das kann
+  kein Browser anzeigen, und die Website ignoriert solche Dateien. Vor dem
+  Ablegen als JPG exportieren: auf dem iPhone in der Fotos-App teilen →
+  „Optionen" → Format „Kompatibelste Version"; oder beim Übertragen auf den
+  Rechner in den iPhone-Einstellungen unter Fotos → „Auf Mac oder PC
+  übertragen" auf „Automatisch" stellen.
 - **2400 px** an der langen Kante reicht völlig. Next.js rechnet daraus
   automatisch alle kleineren Grössen fürs Handy.
 - Vorher grob auf unter ~1 MB bringen. Riesige Dateien direkt aus der Kamera

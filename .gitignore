@@ -11,3 +11,7 @@ next-env.d.ts
 # Windows und OneDrive legen die überall ab
 desktop.ini
 Thumbs.db
+
+# HEIC (iPhone) kann kein Browser anzeigen – vorher als JPG exportieren
+*.heic
+*.HEIC
