@@ -25,11 +25,14 @@ Zum Beenden im Terminal `Strg + C`.
 
 ### 1. Ein Bild einfügen
 
-Auf jedem Platzhalter steht der Dateiname, der dort erwartet wird – zum Beispiel
-`images/projekte/most-hero.jpg`. Leg die Datei unter `public/` genau so ab
-(also `public/images/projekte/most-hero.jpg`) und lade die Seite neu.
+Auf jedem Platzhalter steht der Pfad, der dort erwartet wird – zum Beispiel
+`images/projekte/most/hero.jpg`. Leg die Datei unter `public/` genau so ab
+(also `public/images/projekte/most/hero.jpg`) und lade die Seite neu.
 
-Details und die vollständige Liste: [`public/images/README.md`](public/images/README.md)
+Die Ordner sind angelegt: `allgemein/` für alles, was zu keinem Projekt
+gehört, und unter `projekte/` ein Ordner pro Projekt. Details, die
+vollständige Liste und Hinweise zu Format und Grösse:
+[`public/images/README.md`](public/images/README.md)
 
 ### 2. Ein Update schreiben
 
@@ -42,7 +45,7 @@ einen Eintrag ergänzen:
   date: "2026-11-14",            // YYYY-MM-DD, sortiert sich von selbst
   title: "Der erste Frost",
   body: ["Erster Absatz.", "Zweiter Absatz."],
-  images: ["/images/projekte/trueffelplantage-update-01.jpg"],
+  images: ["/images/projekte/trueffelplantage/2026-11-14-01.jpg"],
 }
 ```
 

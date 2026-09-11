@@ -135,7 +135,7 @@ export const facts: { label: string; value: string }[] = [
  */
 export const founders = {
   names: ["Gianluca", "Leo", "Mirko"],
-  image: "/images/club/gruender.jpg",
+  image: "/images/allgemein/gruender.jpg",
   vision: [
     "Wir drei kannten dasselbe Gefühl: viele Leute um sich herum – und trotzdem niemanden, mit dem man über das redet, was einen wirklich beschäftigt. Nicht aus bösem Willen. Es ergibt sich einfach nicht.",
     "Irgendwann haben wir aufgehört, darauf zu warten, dass es sich ergibt. Der ViGORE Club ist das, was daraus geworden ist: ein fester Kreis, in dem man sich kennt, weil man miteinander arbeitet – und in dem gefragt wird, wie es einem geht, auch wenn die Antwort länger dauert als ein Satz.",

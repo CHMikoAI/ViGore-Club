@@ -34,7 +34,7 @@ export default function ClubPage() {
 
       <Container>
         <Figure
-          src="/images/club/club-gruppe.jpg"
+          src="/images/allgemein/club.jpg"
           alt="Der Club"
           ratio="21/9"
           sizes="(max-width: 1400px) 100vw, 1400px"

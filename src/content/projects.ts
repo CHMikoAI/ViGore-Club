@@ -17,9 +17,12 @@
  * Startseite und unter /projekte/<slug> auf.
  *
  * ── Bilder ─────────────────────────────────────────────────────────────────
- * Die Pfade zeigen auf public/images/… . Solange dort keine Datei liegt, zeigt
- * die Seite einen Platzhalter mit dem erwarteten Dateinamen. Datei ablegen,
- * neu laden, fertig.
+ * Jedes Projekt hat seinen eigenen Ordner unter public/images/projekte/<slug>/:
+ *   hero.jpg              Kopfbild (Karte und Detailseite)
+ *   galerie-01.jpg …      Galerie auf der Detailseite
+ *   2026-09-06-01.jpg …   Bilder zu einem Update, mit dem Datum des Updates
+ * Solange eine Datei fehlt, zeigt die Seite einen Platzhalter mit dem
+ * erwarteten Pfad. Datei ablegen, neu laden, fertig.
  */
 
 export type ProjectStatus = "laufend" | "bald" | "coming-soon" | "woechentlich";
@@ -69,11 +72,11 @@ export const projects: Project[] = [
     summary:
       "Unser erstes Projekt. Eine Plantage in Graubünden, von Hand gepflanzt – " +
       "mit einem Ergebnis, auf das wir Jahre warten.",
-    hero: "/images/projekte/trueffelplantage-hero.jpg",
+    hero: "/images/projekte/trueffelplantage/hero.jpg",
     gallery: [
-      "/images/projekte/trueffelplantage-01.jpg",
-      "/images/projekte/trueffelplantage-02.jpg",
-      "/images/projekte/trueffelplantage-03.jpg",
+      "/images/projekte/trueffelplantage/galerie-01.jpg",
+      "/images/projekte/trueffelplantage/galerie-02.jpg",
+      "/images/projekte/trueffelplantage/galerie-03.jpg",
     ],
     intro: "Trüffel belohnen keine Ungeduld. Genau deshalb standen sie am Anfang.",
     sections: [
@@ -125,11 +128,11 @@ export const projects: Project[] = [
     summary:
       "Ein Wochenende in der Mosterei. Nach alter Art gepresst, bald im " +
       "Verkauf – der Erlös geht in die Clubkasse.",
-    hero: "/images/projekte/most-hero.jpg",
+    hero: "/images/projekte/most/hero.jpg",
     gallery: [
-      "/images/projekte/most-01.jpg",
-      "/images/projekte/most-02.jpg",
-      "/images/projekte/most-03.jpg",
+      "/images/projekte/most/galerie-01.jpg",
+      "/images/projekte/most/galerie-02.jpg",
+      "/images/projekte/most/galerie-03.jpg",
     ],
     intro:
       "Am Morgen auf der Wiese, am Nachmittag an der Presse. Ein Tag, an dem " +
@@ -172,8 +175,8 @@ export const projects: Project[] = [
           "Am Abend stand der Most da. Und die Erkenntnis, dass gemeinsame Arbeit eine Gruppe schneller zusammenbringt als jedes Gespräch über Zusammenhalt.",
         ],
         images: [
-          "/images/projekte/most-update-01.jpg",
-          "/images/projekte/most-update-02.jpg",
+          "/images/projekte/most/2026-09-06-01.jpg",
+          "/images/projekte/most/2026-09-06-02.jpg",
         ],
       },
     ],
@@ -186,7 +189,7 @@ export const projects: Project[] = [
     summary:
       "Kein Projekt, ein Rhythmus. Zwei Stunden auf dem Platz – und meistens " +
       "der Ort, an dem die ehrlichen Gespräche anfangen.",
-    hero: "/images/projekte/padel-hero.jpg",
+    hero: "/images/projekte/padel/hero.jpg",
     gallery: [],
     intro: "Der unspektakulärste Termin im Club. Und wahrscheinlich der wichtigste.",
     sections: [
@@ -213,7 +216,7 @@ export const projects: Project[] = [
     summary:
       "Jeder zieht dieselbe Pflanze auf. Nach einem halben Jahr wird " +
       "verglichen. Mehr verraten wir noch nicht.",
-    hero: "/images/projekte/erdnuss-hero.jpg",
+    hero: "/images/projekte/erdnuss-challenge/hero.jpg",
     gallery: [],
     intro: "Gleicher Start für alle. Den Rest macht jeder selbst.",
     sections: [
