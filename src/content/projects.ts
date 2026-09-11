@@ -170,6 +170,16 @@ export const projects: Project[] = [
     ],
     updates: [
       {
+        // ENTWURF – bitte in eure Worte bringen. Das Bild ist das Original.
+        date: "2026-09-08",
+        title: "Abgefüllt",
+        body: [
+          "Etikett drauf, Kisten gepackt, zurück über die Kantonsgrenze. Der Most steht jetzt da, wo er hingehört – in Graubünden.",
+          "Was noch fehlt: der Weg zu euch. Bald.",
+        ],
+        images: ["/images/projekte/most/2026-09-08-01.jpg"],
+      },
+      {
         date: "2026-09-06",
         title: "Ein Tag in der Mosterei",
         body: [
