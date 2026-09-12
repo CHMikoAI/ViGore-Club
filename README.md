@@ -166,8 +166,11 @@ Der Code liegt auf GitHub: https://github.com/CHMikoAI/ViGore-Club
 1. Auf [vercel.com](https://vercel.com) mit GitHub anmelden und das
    Repository `CHMikoAI/ViGore-Club` importieren – Next.js wird automatisch
    erkannt, es sind keine Einstellungen nötig.
-2. Unter Settings → Domains `vigore-club.ch` und `www.vigore-club.ch`
-   hinzufügen und die DNS-Einträge beim Domain-Anbieter anpassen.
+2. Unter Settings → Domains `vigore-club.ch` **und** `www.vigore-club.ch`
+   hinzufügen und die DNS-Einträge beim Domain-Anbieter anpassen. Beide!
+   Fehlt `www`, gibt es dafür kein Zertifikat, und wer die Seite mit `www.`
+   aufruft, sieht «Your connection is not private». Die Hauptadresse ist die
+   ohne www (`src/content/site.ts`); `www` leitet dorthin um.
 3. Falls Mailversand gewünscht: die beiden Variablen von oben eintragen.
 
 Danach baut Vercel bei jedem Push auf `main` automatisch neu. Vor dem Push

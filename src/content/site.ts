@@ -10,7 +10,9 @@ export const site = {
   description:
     "Ein Kreis von Männern aus Graubünden. Wir nehmen uns echte Projekte vor – " +
     "und bauen dabei ein Vertrauen auf, das trägt.",
-  url: "https://www.vigore-club.ch",
+  /* Ohne www – so ist die Domain auf Vercel als Hauptadresse eingetragen;
+     www leitet dorthin um, sobald es dort ebenfalls hinzugefügt ist. */
+  url: "https://vigore-club.ch",
   email: "hallo@vigore-club.ch",
   location: "7000 Chur, Graubünden",
 } as const;
