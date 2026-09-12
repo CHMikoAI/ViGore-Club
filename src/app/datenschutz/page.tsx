@@ -130,7 +130,7 @@ export default function DatenschutzPage() {
 
             <section>
               <h2 className="display-3 text-on-surface">
-                5. Kontakt- und Vormerkformular
+                5. Kontakt-, Bestell- und Bewerbungsformular
               </h2>
               <p className="mt-4">
                 Auf dieser Website kannst du uns über ein Formular eine
@@ -138,6 +138,13 @@ export default function DatenschutzPage() {
                 E-Mail-Adresse und deine Nachricht) werden uns per E-Mail
                 zugestellt und dort so lange aufbewahrt, wie es zur Bearbeitung
                 deines Anliegens nötig ist.
+              </p>
+              <p className="mt-4">
+                Wer sich um eine Mitgliedschaft bewirbt, gibt zusätzlich seinen
+                Wohnort an, auf Wunsch eine Telefonnummer und wie er auf uns
+                gekommen ist. Diese Angaben verwenden wir ausschliesslich, um
+                die Bewerbung zu prüfen und uns bei dir zu melden. Kommt keine
+                Mitgliedschaft zustande, löschen wir sie.
               </p>
               <p className="mt-4">
                 Für den Versand dieser E-Mails setzen wir einen technischen

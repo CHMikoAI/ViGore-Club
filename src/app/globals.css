@@ -366,12 +366,15 @@ body {
   text-wrap: pretty;
 }
 
-.prose-club p {
-  margin-bottom: 1.25em;
-  text-wrap: pretty;
+/* Abstand zwischen den Absätzen – gemessen zwischen Geschwistern, nicht am
+   Absatz selbst. So stimmt er auch, wenn jeder Absatz in seinem eigenen
+   Einblend-Rahmen (Reveal) steht: dort wäre jedes <p> ein „letztes" ohne
+   Rand, und die Absätze klebten aneinander. */
+.prose-club > * + * {
+  margin-top: 1.25em;
 }
-.prose-club p:last-child {
-  margin-bottom: 0;
+.prose-club p {
+  text-wrap: pretty;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -514,9 +517,60 @@ body {
   .card-lift:hover .card-zoom {
     transform: scale(1.04);
   }
+  /* Ist die ganze Karte der Link, zieht sich beim Überfahren auch die
+     Unterstreichung des „Weiterlesen" darin – nicht erst über dem Wort. */
+  .card-lift:hover .link-underline::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
 }
 .card-zoom {
   transition: transform 900ms var(--ease-club);
+}
+
+/* ── Die Vergrösserung eines Bildes (Gallery.tsx) ──────────────────────────
+   Ein <dialog>, das den ganzen Bildschirm einnimmt: das Bild in der Mitte,
+   darunter die Unterschrift, an den Rändern die Knöpfe. Der Browser legt es
+   in die oberste Ebene und hält den Fokus darin – deshalb ein echtes
+   <dialog> und kein nachgebautes. */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-cream);
+}
+.lightbox::backdrop {
+  background-color: rgba(20, 16, 12, 0.94);
+}
+.lightbox[open] {
+  animation: page-in 260ms var(--ease-club) both;
+}
+
+.lightbox-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(251, 247, 238, 0.35);
+  background-color: rgba(20, 16, 12, 0.55);
+  color: var(--color-cream);
+  transition:
+    border-color 200ms var(--ease-club),
+    background-color 200ms var(--ease-club);
+}
+.lightbox-button:hover,
+.lightbox-button:focus-visible {
+  border-color: var(--color-cream);
+  background-color: rgba(20, 16, 12, 0.85);
 }
 
 } /* Ende @layer components */

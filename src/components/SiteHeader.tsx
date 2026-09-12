@@ -4,18 +4,21 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { navigation, site } from "@/content/site";
+import { MemberIcon } from "./icons";
+import { memberArea, navigation, site } from "@/content/site";
 
 /**
  * Der Header: Espresso-Balken, 80 Pixel hoch – wie auf der bisherigen Website.
  *
- * Das Logo steht mittig, die Navigation legt sich symmetrisch darum: zwei
- * Punkte links, einer rechts. Beide Gruppen liegen auf flex-1, dadurch bleibt
- * das Logo exakt auf der Mittelachse – unabhängig davon, wie lang die
+ * Das Logo steht mittig. Links die Navigation, rechts – abgesetzt als Knopf –
+ * die Tür zum Mitgliederbereich. Beide Seiten liegen auf flex-1, dadurch
+ * bleibt das Logo exakt auf der Mittelachse, unabhängig davon, wie lang die
  * Beschriftungen sind.
  *
- * Auf dem Handy bleibt das Logo mittig, rechts steht der Menüknopf; links
- * hält ein gleich breiter Platzhalter die Mitte.
+ * Auf dem Handy bleibt das Logo mittig; rechts stehen Mitglieder-Icon und
+ * Menüknopf, links hält ein Platzhalter die Mitte. Im Menü selbst steht der
+ * Mitgliederbereich noch einmal als Knopf – wer die Liste liest, soll ihn
+ * nicht suchen müssen.
  */
 export default function SiteHeader() {
   const pathname = usePathname();
@@ -47,8 +50,7 @@ export default function SiteHeader() {
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
 
-  const left = navigation.slice(0, 2);
-  const right = navigation.slice(2);
+  const memberActive = isActive(memberArea.href);
 
   const navLink = (href: string, label: string) => (
     <Link
@@ -71,21 +73,24 @@ export default function SiteHeader() {
         {/* Gleiche Breite und Innenabstände wie <Container>, damit die
             Navigation aussen bündig mit dem Inhalt abschliesst. */}
         <div className="mx-auto flex h-20 max-w-[1400px] items-center px-5 md:px-8">
-          {/* Links: die ersten Navigationspunkte */}
+          {/* Links: die Navigation */}
           <nav
             aria-label="Hauptnavigation"
             className="hidden flex-1 items-center gap-9 lg:flex"
           >
-            {left.map((item) => navLink(item.href, item.label))}
+            {navigation.map((item) => navLink(item.href, item.label))}
           </nav>
 
-          {/* Handy: Platzhalter in Knopfbreite, damit das Logo mittig bleibt */}
-          <div className="w-11 flex-1 lg:hidden" aria-hidden />
+          {/* Handy: Platzhalter, damit das Logo mittig bleibt. Beide Seiten
+              teilen sich den Platz neben dem Logo gleich auf; auf sehr
+              schmalen Geräten darf der Platzhalter schrumpfen, die Knöpfe
+              rechts nicht. */}
+          <div className="min-w-0 flex-1 lg:hidden" aria-hidden />
 
           <Link
             href="/"
             aria-label={`${site.name} – zur Startseite`}
-            className="shrink-0 px-6 transition-opacity duration-200 hover:opacity-80"
+            className="shrink-0 px-4 transition-opacity duration-200 hover:opacity-80 md:px-6"
           >
             {/* logo.png ist aus ViGORE_Logos.png (im selben Ordner) erzeugt:
                 freigestellt und auf den Inhalt beschnitten. Die Quelldatei
@@ -103,15 +108,37 @@ export default function SiteHeader() {
             />
           </Link>
 
-          {/* Rechts: die übrigen Navigationspunkte */}
-          <nav
-            aria-label="Hauptnavigation"
-            className="hidden flex-1 items-center justify-end gap-9 lg:flex"
-          >
-            {right.map((item) => navLink(item.href, item.label))}
-          </nav>
+          {/* Rechts: die Tür zum Mitgliederbereich. Umrandet wie der grosse
+              Knopf im Hero, nur in Header-Grösse; auf der Seite selbst ist
+              er gefüllt – man sieht, dass man angekommen ist. */}
+          <div className="hidden flex-1 justify-end lg:flex">
+            <Link
+              href={memberArea.href}
+              aria-current={memberActive ? "page" : undefined}
+              className={`inline-flex h-10 items-center gap-2.5 border px-4 text-[0.75rem] uppercase tracking-[0.14em] transition-colors duration-300 ${
+                memberActive
+                  ? "border-cream bg-cream text-espresso"
+                  : "border-cream/40 text-cream hover:border-cream hover:bg-cream hover:text-espresso focus-visible:border-cream"
+              }`}
+            >
+              <MemberIcon className="h-4 w-4" />
+              {memberArea.label}
+            </Link>
+          </div>
 
           <div className="flex flex-1 justify-end lg:hidden">
+            {/* Handy: das Icon allein, 44px Trefferfläche wie der Menüknopf */}
+            <Link
+              href={memberArea.href}
+              aria-label={memberArea.label}
+              aria-current={memberActive ? "page" : undefined}
+              className={`flex h-11 w-11 items-center justify-center transition-colors duration-200 ${
+                memberActive ? "text-accent" : "text-cream"
+              }`}
+            >
+              <MemberIcon className="h-[1.375rem] w-[1.375rem]" />
+            </Link>
+
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
@@ -195,9 +222,29 @@ export default function SiteHeader() {
             ))}
           </nav>
 
+          {/* Der Mitgliederbereich als Knopf unter der Liste – derselbe
+              Umriss wie im Header, hier in voller Grösse. */}
+          <div
+            className="menu-stagger mt-10 flex justify-center"
+            style={{ transitionDelay: open ? `${140 + navigation.length * 70}ms` : "0ms" }}
+          >
+            <Link
+              href={memberArea.href}
+              aria-current={memberActive ? "page" : undefined}
+              className={`inline-flex h-12 items-center gap-3 border px-7 text-[0.8125rem] uppercase tracking-[0.14em] transition-colors duration-300 ${
+                memberActive
+                  ? "border-cream bg-cream text-espresso"
+                  : "border-cream/40 text-cream active:bg-cream active:text-espresso"
+              }`}
+            >
+              <MemberIcon className="h-[1.125rem] w-[1.125rem]" />
+              {memberArea.label}
+            </Link>
+          </div>
+
           <div
             className="menu-stagger mt-12 space-y-1"
-            style={{ transitionDelay: open ? `${180 + navigation.length * 70}ms` : "0ms" }}
+            style={{ transitionDelay: open ? `${220 + navigation.length * 70}ms` : "0ms" }}
           >
             <a
               href={`mailto:${site.email}`}

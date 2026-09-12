@@ -18,64 +18,35 @@ export const metadata: Metadata = {
     "im Kalender steht. Ein Männerclub in Graubünden.",
 };
 
+/**
+ * Die Club-Seite.
+ *
+ *   Kopf          Kurz, wer wir sind und warum es uns gibt – direkt darunter
+ *                 die harten Zahlen: wie klein und wie jung das Ganze ist
+ *   01 Gründer    Bild und Vision der drei
+ *   02 Rhythmus   Was fest im Kalender steht
+ *   03 Werte      Worauf wir uns verlassen
+ *   04 Für wen    Ob das etwas für dich ist
+ *   Schluss       Klingt nach dir?
+ *
+ * Bänder: Creme, Papier, Tiefdunkel, Creme, Papier, Espresso.
+ */
 export default function ClubPage() {
   return (
     <>
-      <header className="bg-cream pb-14 pt-16 md:pb-20 md:pt-24">
+      {/* ── Kopf ─────────────────────────────────────────────────────────
+          Kein Bild, keine lange Erzählung: drei Sätze, dann die Zahlen. */}
+      <Section band="cream" className="!pt-16 md:!pt-24">
         <Container>
           <SectionHeader
             as="h1"
             label="Der Club"
             heading="Ein Ort, an dem man nichts vorspielen muss."
-            lede="Eine kleine Runde aus Graubünden. Kein Verein mit Programm, kein Netzwerk mit Visitenkarten – ein Club, der Dinge gemeinsam macht und dabei ehrlich miteinander umgeht."
+            lede="Eine kleine Runde aus Graubünden – kein Verein mit Programm, kein Netzwerk mit Visitenkarten. Die meisten Männer haben Kollegen, mit denen sie über alles reden, ausser über das, was sie wirklich beschäftigt. Wir wollten einen Ort, an dem das anders läuft: ein Kreis, der Dinge gemeinsam macht und dabei ehrlich miteinander umgeht."
           />
-        </Container>
-      </header>
 
-      <Container>
-        <Figure
-          src="/images/allgemein/club.jpg"
-          alt="Der Club"
-          ratio="21/9"
-          sizes="(max-width: 1400px) 100vw, 1400px"
-        />
-      </Container>
-
-      {/* ── Warum es uns gibt ───────────────────────────────────────────── */}
-      <Section band="cream">
-        <Container>
-          <SectionHeader number="01" label="Warum es uns gibt" />
-
-          <div className="prose-club mx-auto mt-10 max-w-2xl text-center text-[1.0625rem] leading-relaxed">
-            <Reveal>
-              <p>
-                Die meisten Männer haben Kollegen, mit denen sie über alles
-                reden – ausser über das, was sie wirklich beschäftigt. Man kennt
-                sich seit Jahren und weiss trotzdem nicht, wie es dem anderen
-                geht. Kein Vorwurf. Es wächst einfach so.
-              </p>
-            </Reveal>
-            <Reveal delay={70}>
-              <p>
-                Wir wollten einen Ort, an dem das anders läuft. An dem man sagen
-                kann, dass es gerade nicht rund geht, ohne dass es peinlich wird
-                oder man gleich zum Fall erklärt wird.
-              </p>
-            </Reveal>
-            <Reveal delay={140}>
-              <p>
-                So einen Ort kann man aber nicht beschliessen. Vertrauen
-                entsteht nicht, weil man es sich vornimmt, sondern nebenbei –
-                wenn man miteinander etwas tut. Deshalb die Projekte. Sie sind
-                der Anlass. Was dabei zwischen uns wächst, ist der Grund.
-              </p>
-            </Reveal>
-          </div>
-
-          {/* Die harten Zahlen direkt hinter der Erzählung – erst warum,
-              dann wie klein und wie jung das Ganze tatsächlich ist. */}
           <Reveal delay={220}>
-            <dl className="mx-auto mt-16 flex max-w-3xl flex-wrap justify-center gap-x-24 gap-y-10 border-y border-line py-10 text-center">
+            <dl className="mx-auto mt-14 flex max-w-3xl flex-wrap justify-center gap-x-24 gap-y-10 border-y border-line py-10 text-center">
               {facts.map((fact) => (
                 <div key={fact.label}>
                   <dt className="eyebrow">{fact.label}</dt>
@@ -91,7 +62,7 @@ export default function ClubPage() {
       <Section band="paper">
         <Container>
           <SectionHeader
-            number="02"
+            number="01"
             label="Die Gründer"
             heading="Zu dritt angefangen"
           />
@@ -123,7 +94,7 @@ export default function ClubPage() {
       <Section band="dark">
         <Container>
           <SectionHeader
-            number="03"
+            number="02"
             label="Rhythmus"
             heading="Was fest im Kalender steht"
           />
@@ -150,7 +121,7 @@ export default function ClubPage() {
       <Section band="cream">
         <Container>
           <SectionHeader
-            number="04"
+            number="03"
             label="Werte"
             heading="Worauf wir uns verlassen"
           />
@@ -159,7 +130,7 @@ export default function ClubPage() {
         </Container>
       </Section>
 
-      <FitSection number="05" />
+      <FitSection number="04" />
 
       {/* ── Sei dabei · Ansprache ──────────────────────────────────────── */}
       <Section band="espresso">
@@ -169,7 +140,7 @@ export default function ClubPage() {
             heading="Klingt nach dir?"
             lede="Wenn du dich in unseren Werten wiedererkennst und bereit bist, dich einzubringen, dann melde dich bei uns."
             action={
-              <OutlineButton href="/kontakt" tone="light">
+              <OutlineButton href="/kontakt/mitglied-werden" tone="light">
                 Mitglied werden
               </OutlineButton>
             }

@@ -6,9 +6,11 @@ import { STATUS_LABELS, type ProjectStatus } from "@/content/projects";
  * auf hellem wie auf dunklem Grund.
  */
 
+// Grün: es läuft oder es ist da. Grau: noch nicht.
 const DOT: Record<ProjectStatus, string> = {
   laufend: "bg-forest",
-  bald: "bg-brass",
+  erhaeltlich: "bg-forest",
+  bald: "bg-muted",
   "coming-soon": "bg-muted",
 };
 

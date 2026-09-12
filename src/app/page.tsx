@@ -1,4 +1,5 @@
 import FitSection from "@/components/FitSection";
+import LatestUpdate from "@/components/LatestUpdate";
 import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/Reveal";
 import ValueGrid from "@/components/ValueGrid";
@@ -62,7 +63,7 @@ export default function HomePage() {
 
           <Reveal delay={440}>
             <div className="mt-11 flex justify-center">
-              <OutlineButton href="/kontakt" tone="light">
+              <OutlineButton href="/kontakt/mitglied-werden" tone="light">
                 Mitglied werden
               </OutlineButton>
             </div>
@@ -103,11 +104,16 @@ export default function HomePage() {
         </Container>
       </Section>
 
+      {/* ── Aktuelles · Inhalt ────────────────────────────────────────────
+          Das neueste Update, genau eines – dieselbe Karte wie auf der
+          Projektübersicht. Das erste Bild der Seite, auf Tiefdunkel. */}
+      <LatestUpdate number="02" />
+
       {/* ── Projekte · Inhalt ─────────────────────────────────────────────── */}
       <Section band="paper">
         <Container>
           <SectionHeader
-            number="02"
+            number="03"
             label="Projekte"
             heading="Woran wir gerade sind"
             lede="Jedes Projekt führt sein eigenes Protokoll. Was zuletzt passiert ist, steht direkt dort – mit Bildern und ohne Hochglanz."
@@ -158,7 +164,7 @@ export default function HomePage() {
       <Section band="cream">
         <Container>
           <SectionHeader
-            number="03"
+            number="04"
             label="Haltung"
             heading="Worauf wir uns verlassen"
           />
@@ -167,7 +173,7 @@ export default function HomePage() {
         </Container>
       </Section>
 
-      <FitSection number="04" />
+      <FitSection number="05" />
 
       {/* ── Sei dabei · Ansprache ─────────────────────────────────────────
           Gleiche Fläche und gleicher Knopf wie der Hero, nur ohne die volle
@@ -179,7 +185,7 @@ export default function HomePage() {
             heading="Bereit, Verantwortung zu übernehmen?"
             lede="Wenn du dich in unseren Werten wiedererkennst und bereit bist, dich einzubringen, dann melde dich bei uns."
             action={
-              <OutlineButton href="/kontakt" tone="light">
+              <OutlineButton href="/kontakt/mitglied-werden" tone="light">
                 Mitglied werden
               </OutlineButton>
             }

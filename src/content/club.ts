@@ -134,7 +134,7 @@ export const facts: { label: string; value: string }[] = [
  * Die Gründer. Bild und Text stehen auf /club.
  */
 export const founders = {
-  names: ["Gianluca", "Leo", "Mirko"],
+  names: ["Gianluca", "Leonardo", "Mirko"],
   image: "/images/allgemein/gruender.jpg",
   vision: [
     "Wir drei kannten dasselbe Gefühl: viele Leute um sich herum – und trotzdem niemanden, mit dem man über das redet, was einen wirklich beschäftigt. Nicht aus bösem Willen. Es ergibt sich einfach nicht.",

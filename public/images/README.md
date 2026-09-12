@@ -15,8 +15,7 @@ Kein Code, keine Einstellung, kein Neustart.
 images/
 │
 ├─ allgemein/              Alles, was nicht zu einem bestimmten Projekt gehört
-│  ├─ club.jpg             Breites Bild auf der Seite „Der Club" (21:9)
-│  ├─ gruender.jpg         Gianluca, Leo und Mirko (3:2)
+│  ├─ gruender.jpg         Gianluca, Leonardo und Mirko (3:2)
 │  ├─ logo.png             Das Logo im Header – freigestellt, NICHT die Quelle
 │  ├─ ViGORE_Logos.png     Quelldatei des Logos (weisser Hintergrund)
 │  └─ ViGORE_Favicon.png   Quelldatei des Favicons
@@ -25,9 +24,15 @@ images/
    │
    ├─ trueffelplantage/
    │  ├─ hero.jpg          Kopfbild – auf der Karte und oben auf der Seite
-   │  ├─ 2026-07-19-01.jpg Bilder zu einem Update, mit dem Datum des Updates
-   │  ├─ 2026-07-19-02.jpg
-   │  └─ 2026-07-19-03.jpg
+   │  │                    (Kopie von 2026-07-11-01.jpg; gern austauschen)
+   │  ├─ 2026-04-04-01.jpg Pflanztag, fünf Bilder in der Reihenfolge des Tages
+   │  ├─ …
+   │  ├─ 2026-04-04-05.jpg
+   │  ├─ 2026-05-14-01.jpg Erster Kontrollgang, zwei Bilder
+   │  ├─ 2026-05-14-02.jpg
+   │  ├─ 2026-07-11-01.jpg Giessen im Hitzesommer, zwei Bilder
+   │  ├─ 2026-07-11-02.jpg
+   │  └─ 2026-08-08-01.jpg Noch einmal giessen
    │
    ├─ most/
    │  ├─ hero.jpg

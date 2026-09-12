@@ -1,7 +1,8 @@
 import { site } from "@/content/site";
 
 /**
- * Nimmt die Formulare der Seite entgegen (Kontakt und Most-Vormerkung).
+ * Nimmt die Formulare der Seite entgegen: Kontakt, Most-Bestellung und die
+ * Bewerbung um eine Mitgliedschaft (Thema „bewerbung", von /mitglieder).
  *
  * ── Mailversand einschalten ────────────────────────────────────────────────
  * Ohne Konfiguration antwortet diese Route mit `reason: "not-configured"`.
@@ -17,17 +18,34 @@ import { site } from "@/content/site";
  * Mehr ist nicht nötig – der Code unten nutzt sie automatisch.
  */
 
+type Topic = "club" | "most" | "bewerbung";
+
 type Payload = {
   topic?: string;
   name?: string;
   email?: string;
   message?: string;
+  /** Nur Most-Bestellung: Anzahl Container und Lieferadresse. */
   quantity?: string;
+  address?: string;
+  /** Nur Bewerbung. */
+  phone?: string;
+  place?: string;
+  source?: string;
   /** Honigtopf: von Menschen nie ausgefüllt, von Bots fast immer. */
   website?: string;
 };
 
-const MAX = { name: 120, email: 200, message: 4000, quantity: 40 };
+const MAX = {
+  name: 120,
+  email: 200,
+  message: 4000,
+  quantity: 40,
+  address: 200,
+  phone: 40,
+  place: 120,
+  source: 200,
+};
 
 function clean(value: unknown, max: number): string {
   return typeof value === "string" ? value.trim().slice(0, max) : "";
@@ -54,7 +72,16 @@ export async function POST(request: Request) {
   const email = clean(payload.email, MAX.email);
   const message = clean(payload.message, MAX.message);
   const quantity = clean(payload.quantity, MAX.quantity);
-  const topic = payload.topic === "most" ? "most" : "club";
+  const address = clean(payload.address, MAX.address);
+  const phone = clean(payload.phone, MAX.phone);
+  const place = clean(payload.place, MAX.place);
+  const source = clean(payload.source, MAX.source);
+  const topic: Topic =
+    payload.topic === "most"
+      ? "most"
+      : payload.topic === "bewerbung"
+        ? "bewerbung"
+        : "club";
 
   if (!name || !looksLikeEmail(email)) {
     return Response.json({ ok: false, reason: "invalid" }, { status: 422 });
@@ -69,17 +96,34 @@ export async function POST(request: Request) {
   }
 
   const subject =
-    topic === "most"
-      ? `Most-Vormerkung: ${name}`
-      : `Anfrage über die Website: ${name}`;
+    topic === "bewerbung"
+      ? `Bewerbung: ${name}`
+      : topic === "most"
+        ? `Most-Bestellung: ${name}`
+        : `Anfrage über die Website: ${name}`;
 
-  const lines = [
-    `Name:    ${name}`,
-    `E-Mail:  ${email}`,
-    quantity ? `Menge:   ${quantity}` : null,
-    "",
-    message || "(keine Nachricht)",
-  ].filter((line): line is string => line !== null);
+  const lines = (
+    topic === "bewerbung"
+      ? [
+          `Name:     ${name}`,
+          `E-Mail:   ${email}`,
+          phone ? `Telefon:  ${phone}` : null,
+          `Wohnort:  ${place || "(keine Angabe)"}`,
+          "",
+          "Warum dabei sein:",
+          message || "(keine Angabe)",
+          source ? "" : null,
+          source ? `Auf uns gekommen über: ${source}` : null,
+        ]
+      : [
+          `Name:    ${name}`,
+          `E-Mail:  ${email}`,
+          quantity ? `Anzahl:  ${quantity} Container à 5 Liter` : null,
+          address ? `Adresse: ${address}` : null,
+          "",
+          message || "(keine Nachricht)",
+        ]
+  ).filter((line): line is string => line !== null);
 
   try {
     const response = await fetch("https://api.resend.com/emails", {

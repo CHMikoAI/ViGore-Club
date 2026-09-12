@@ -55,3 +55,13 @@ export function CrossIcon({ className }: IconProps) {
     </svg>
   );
 }
+
+/** Die Person – der Mitgliederbereich im Header und im Menü. */
+export function MemberIcon({ className }: IconProps) {
+  return (
+    <svg {...BASE} className={className}>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4.5 20.5c0-4.1 3.4-7 7.5-7s7.5 2.9 7.5 7" />
+    </svg>
+  );
+}

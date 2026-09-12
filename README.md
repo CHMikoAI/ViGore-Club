@@ -45,19 +45,28 @@ einen Eintrag ergänzen:
   date: "2026-11-14",            // YYYY-MM-DD, sortiert sich von selbst
   title: "Der erste Frost",
   body: ["Erster Absatz.", "Zweiter Absatz."],
-  images: ["/images/projekte/trueffelplantage/2026-11-14-01.jpg"],
+  images: [
+    "/images/projekte/trueffelplantage/2026-11-14-01.jpg",
+    { src: "/images/projekte/trueffelplantage/2026-11-14-02.jpg",
+      caption: "Was auf dem Bild zu sehen ist." },   // mit Bildunterschrift
+  ],
 }
 ```
 
 Es erscheint sofort auf der Projektseite, und die Projektkarte zeigt das Datum
-als Lebenszeichen an.
+als Lebenszeichen an. Bilder lassen sich anklicken und gross anschauen; die
+Bildunterschrift steht darunter und in der Vergrösserung.
+
+Ein langer Tag lässt sich mit `parts` in Teile gliedern – etwa Vormittag und
+Nachmittag, jeder mit eigenem Text und eigenen Bildern. Wie das aussieht,
+zeigt der Mosttag in `projects.ts`.
 
 ### 3. Ein Projekt ergänzen oder ändern
 
 Ebenfalls `src/content/projects.ts`. Jedes Projekt bekommt automatisch eine
 eigene Seite unter `/projekte/<slug>`.
 
-Status-Möglichkeiten: `"laufend"`, `"bald"`, `"coming-soon"`, `"woechentlich"`.
+Status-Möglichkeiten: `"laufend"`, `"erhaeltlich"`, `"bald"`, `"coming-soon"`.
 
 ### 4. Etwas an der Gestaltung ändern
 
@@ -80,18 +89,41 @@ src/
 │  ├─ page.tsx             Startseite
 │  ├─ club/                /club
 │  ├─ projekte/            /projekte und /projekte/<slug>
-│  ├─ kontakt/             /kontakt
+│  ├─ kontakt/             /kontakt (Club kontaktieren) und
+│  │                       /kontakt/mitglied-werden (Bewerbung)
+│  ├─ mitglieder/          /mitglieder – Anmeldung, darunter der Weg hinein
 │  ├─ api/kontakt/         nimmt die Formulare entgegen
 │  └─ globals.css          ← Farben, Schriftgrössen, Animationen
 │
 ├─ content/                ← die Inhalte, ohne Code
 │  ├─ site.ts              E-Mail, Adresse, Navigation, Social Media
 │  ├─ projects.ts          Projekte samt ihren Updates
-│  └─ club.ts              Werte, Rhythmus, Zitat
+│  ├─ club.ts              Werte, Rhythmus, Zitat
+│  └─ mitglieder.ts        Ablauf der Bewerbung
 │
-├─ components/             Bausteine (Header, Footer, Karten, Formular)
+├─ components/             Bausteine (Header, Footer, Karten, Formulare)
 └─ lib/fonts.ts            ← Schriftwahl
 ```
+
+---
+
+## Mitgliederbereich und Bewerbung
+
+Der Knopf rechts im Header führt auf `/mitglieder`: zuerst die Anmeldung,
+darunter «Mitglied werden» mit dem Ablauf in drei Schritten
+(`src/content/mitglieder.ts`) und dem Knopf zur Bewerbung.
+
+- **Bewerbung** liegt auf der Kontaktseite: `/kontakt/mitglied-werden`. Dort
+  wählt man über zwei Reiter zwischen «Mitglied werden» (Bewerbung) und «Club
+  kontaktieren» (Nachricht). Alle «Mitglied werden»-Knöpfe der Seite führen
+  direkt auf den Bewerbungs-Reiter. Die Bewerbung geht denselben Weg wie das
+  Kontaktformular (siehe unten) und landet als E-Mail mit Betreff
+  «Bewerbung: Name» bei euch.
+- **Anmeldung** ist vorbereitet, aber noch ohne Funktion – wer sie abschickt,
+  sieht einen Hinweis, dass der Bereich im Aufbau ist. Der eigentliche
+  Mitgliederbereich kommt später unter `/mitglieder/…` dazu; das Formular in
+  `src/components/LoginForm.tsx` muss dann nur noch an die Anmeldung
+  angeschlossen werden.
 
 **Farben ändern:** `src/app/globals.css`, ganz oben im `@theme`-Block. Von dort
 kommt alles – Creme, Espresso, das Messing des Akzents, die dunklen Bänder.
@@ -109,9 +141,9 @@ selbst.
 
 ## Formulare: E-Mail-Versand einschalten
 
-Ohne Konfiguration funktionieren Kontakt- und Vormerkformular bereits: sie
-öffnen das Mailprogramm mit fertig ausgefülltem Text. Es geht also nichts
-verloren.
+Ohne Konfiguration funktionieren Kontakt-, Bestell- und Bewerbungsformular
+bereits: sie öffnen das Mailprogramm mit fertig ausgefülltem Text. Es geht
+also nichts verloren.
 
 Für echten Versand direkt vom Server ein Konto bei [Resend](https://resend.com)
 anlegen, die Domain `vigore-club.ch` verifizieren und zwei Umgebungsvariablen
@@ -154,4 +186,6 @@ jemand anderes tut.
       Bitte vor dem Livegang prüfen.
 - [ ] Instagram- und LinkedIn-Links eintragen
 - [ ] Entscheiden, ob Mitglieder mit Namen und Gesicht auftauchen
+- [ ] Mitgliederbereich bauen: Anmeldung anschliessen (`LoginForm.tsx`),
+      geschützte Seiten unter `/mitglieder/…`
 - [x] Schrift gesetzt: Cormorant Garamond wie auf der bisherigen Website

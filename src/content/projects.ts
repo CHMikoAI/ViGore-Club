@@ -32,14 +32,40 @@
  *   2026-09-06-01.jpg …   Bilder zu einem Update, mit dem Datum des Updates
  * Solange eine Datei fehlt, zeigt die Seite einen Platzhalter mit dem
  * erwarteten Pfad. Datei ablegen, neu laden, fertig.
+ *
+ * Ein Bild ist entweder nur ein Pfad oder ein Paar aus Pfad und Unterschrift:
+ *   "/images/projekte/most/2026-09-05-01.jpg"
+ *   { src: "/images/projekte/most/2026-09-05-01.jpg", caption: "Ganz oben." }
+ * Die Unterschrift steht unter dem Bild und in der Vergrösserung.
+ *
+ * ── Ein Tag in Teilen ──────────────────────────────────────────────────────
+ * Ein Update kann mit `parts` in Abschnitte gegliedert werden – etwa Vormittag
+ * und Nachmittag. Jeder Teil hat Titel, Absätze und eigene Bilder; so stehen
+ * die Fotos bei dem Moment, zu dem sie gehören, statt als Sammlung am Schluss.
  */
 
-export type ProjectStatus = "laufend" | "bald" | "coming-soon";
+export type ProjectStatus = "laufend" | "erhaeltlich" | "bald" | "coming-soon";
 
 export const STATUS_LABELS: Record<ProjectStatus, string> = {
   laufend: "Laufend",
+  erhaeltlich: "Erhältlich",
   bald: "Bald erhältlich",
   "coming-soon": "Coming soon",
+};
+
+/** Ein Bild – nur der Pfad, oder Pfad mit Unterschrift. */
+export type Photo = string | { src: string; caption?: string };
+
+/** Bringt beide Schreibweisen eines Bildes auf dieselbe Form. */
+export function photoOf(photo: Photo): { src: string; caption?: string } {
+  return typeof photo === "string" ? { src: photo } : photo;
+}
+
+/** Ein Abschnitt innerhalb eines Updates, etwa der Vormittag eines Tages. */
+export type UpdatePart = {
+  title: string;
+  body: string[];
+  images: Photo[];
 };
 
 /** Ein datierter Eintrag zu einem Projekt – das, was früher das Journal war. */
@@ -48,7 +74,9 @@ export type Update = {
   date: string;
   title: string;
   body: string[];
-  images: string[];
+  images: Photo[];
+  /** Optional: der Eintrag in Teilen. Stehen nach body und images. */
+  parts?: UpdatePart[];
 };
 
 export type Project = {
@@ -64,68 +92,173 @@ export type Project = {
   intro: string;
   /** Worum es geht – zwei Absätze, keine Ereignisse. */
   about: string[];
-  /** Kurze Faktenreihe unter dem Kopfbild. Leer lassen ist erlaubt. */
+  /**
+   * Optional: eine Randnotiz zu „Worum es geht" – das Detail, das man am
+   * Stammtisch erzählt. Steht in einem eigenen Kasten zwischen Absätzen und
+   * Fakten.
+   */
+  aside?: { label: string; text: string };
+  /** Kurze Faktenreihe am Ende von „Worum es geht". Leer lassen ist erlaubt. */
   facts: { label: string; value: string }[];
+  /**
+   * Nur, wenn es etwas zu bestellen gibt (der Most). Dann bekommt die Seite
+   * einen Abschnitt mit Bestellformular; `facts` steht darin als Reihe über
+   * dem Formular – Gebinde, Preis, Lieferung.
+   */
+  order?: {
+    lede: string;
+    facts: { label: string; value: string }[];
+  };
   /** Was seither passiert ist. Neueste zuerst – die Sortierung macht der Code. */
   updates: Update[];
 };
 
 export const projects: Project[] = [
   {
+    // ENTWURF – Texte und Bildunterschriften bitte in eure Worte bringen.
+    // Die Daten der Updates stammen aus den Kameradaten der Fotos.
     slug: "trueffelplantage",
     title: "Trüffelplantage",
-    tagline: "Bündner Trüffel, von uns gesetzt",
+    tagline: "Haselnusssträucher, mit Trüffel geimpft",
     status: "laufend",
     summary:
-      "Unser erstes Projekt. Eine Plantage in Graubünden, von Hand gepflanzt – " +
-      "mit einem Ergebnis, auf das wir Jahre warten.",
+      "Unser erstes Projekt. Haselnusssträucher, an den Wurzeln mit Trüffelpilz " +
+      "geimpft, von Hand gesetzt – und ein Ergebnis, auf das wir Jahre warten.",
     hero: "/images/projekte/trueffelplantage/hero.jpg",
     intro: "Trüffel belohnen keine Ungeduld. Genau deshalb standen sie am Anfang.",
     about: [
       "Wir wollten kein Projekt, das man an einem Wochenende abhaken kann. Eine Trüffelplantage ist das Gegenteil: Zwischen dem Setzen und der ersten Ernte liegen Jahre, in denen es nichts zu feiern gibt – und in denen man trotzdem regelmässig hinfahren muss. Wer da dranbleibt, meint es ernst.",
-      "Eine Fläche in Graubünden, Boden untersucht, Bäume von Hand gesetzt. Seither gehört die Plantage zum Takt des Clubs: Einer fährt raus, schaut nach dem Rechten, schickt Bilder in die Gruppe. Irgendwann steht die erste Ernte an – Bündner Trüffel, von uns gesetzt.",
+      "Was da auf dem Hang wächst, sind übrigens keine Trüffel, sondern Haselnusssträucher. Ihre Wurzeln sind mit dem Trüffelpilz geimpft; der Pilz lebt mit dem Strauch, und irgendwann, wenn alles stimmt, wächst unter der Erde das, worauf wir warten. Wann genau, sagt einem niemand. Man erfährt es, wenn man gräbt.",
     ],
+    aside: {
+      label: "Nebenbei",
+      text:
+        "Am Pflanztag hat sich jeder von uns einen Strauch ausgesucht. Seither gehört er ihm – zumindest in der Diskussion. Bei jedem Besuch wird verglichen: Wessen Strauch hat mehr Blätter, wessen lässt sie hängen, wer hat beim letzten Mal zu wenig gegossen. Wissenschaftlich ist das wertlos. Unterhaltsam ist es sehr.",
+    },
     facts: [
       { label: "Ort", value: "Graubünden" },
-      { label: "Rolle", value: "Erstes Clubprojekt" },
+      { label: "Pflanzen", value: "Haselnuss, mit Trüffel geimpft" },
+      { label: "Gepflanzt", value: "April 2026" },
       { label: "Horizont", value: "Mehrere Jahre" },
     ],
     updates: [
       {
-        date: "2026-07-19",
-        title: "Zwischenstand auf der Plantage",
+        date: "2026-08-08",
+        title: "Noch einmal Wasser",
         body: [
-          "Es gibt Projekte, bei denen man nach einem Jahr etwas vorzeigen kann. Und es gibt Trüffel.",
-          "Wir waren draussen, haben nach den Bäumen geschaut, dokumentiert, nachkorrigiert. Von aussen betrachtet: wenig. Für uns: der Beleg, dass wir immer noch hinfahren, auch wenn niemand zuschaut.",
+          "Der Sommer hat nicht aufgehört. Das Gras ist braun, die Sträucher stehen im Vlies und warten auf jeden Liter. Also wieder rauf mit der Kanne – diesmal reicht einer, die anderen hatten gute Ausreden.",
+          "Die Sträucher halten durch. Wir auch.",
         ],
         images: [
-          "/images/projekte/trueffelplantage/2026-07-19-01.jpg",
-          "/images/projekte/trueffelplantage/2026-07-19-02.jpg",
-          "/images/projekte/trueffelplantage/2026-07-19-03.jpg",
+          {
+            src: "/images/projekte/trueffelplantage/2026-08-08-01.jpg",
+            caption: "August, braunes Gras, eine Giesskanne. Der Strauch ist froh.",
+          },
+        ],
+      },
+      {
+        date: "2026-07-11",
+        title: "Der heisse Sommer",
+        body: [
+          "Es ist heiss, seit Wochen, und ein Haselnussstrauch im ersten Jahr hat noch keine tiefen Wurzeln. Also giessen. Nicht einmal – immer wieder. Man fährt hoch, schleppt Wasser, hebt das Vlies, schaut nach.",
+          "Meistens sieht es gut aus. Manchmal sieht es so aus, als hätte der Strauch des Kollegen weniger Wasser bekommen als der eigene. Sagt man aber nicht. Oder doch.",
+        ],
+        images: [
+          {
+            src: "/images/projekte/trueffelplantage/2026-07-11-01.jpg",
+            caption: "Die Sträucher im Vlies, zwei von uns am Nachsehen.",
+          },
+          {
+            src: "/images/projekte/trueffelplantage/2026-07-11-02.jpg",
+            caption: "Vlies hoch, Kanne rein, schauen, ob er noch lebt. Er lebt.",
+          },
+        ],
+      },
+      {
+        date: "2026-05-14",
+        title: "Erster Kontrollgang",
+        body: [
+          "Sechs Wochen nach dem Pflanzen: Die Wiese blüht, als hätte sie es eilig, und jeder Strauch steht in seinem Vlies – ein weisser Mantel gegen Wind, Wild und Übermut. Von aussen sieht die Plantage aus wie eine Reihe kleiner Zelte.",
+          "Von innen sieht es aus wie Hoffnung: grüne Blätter, die es ernst meinen.",
+        ],
+        images: [
+          {
+            src: "/images/projekte/trueffelplantage/2026-05-14-01.jpg",
+            caption: "Blick ins Vlies: Er lebt, er treibt, er hat Ambitionen.",
+          },
+          {
+            src: "/images/projekte/trueffelplantage/2026-05-14-02.jpg",
+            caption: "Kontrollgang mit Margeriten.",
+          },
+        ],
+      },
+      {
+        date: "2026-04-04",
+        title: "Gepflanzt",
+        body: [
+          "Ein Samstag im April, Schnee noch auf den Bergen, der Boden gerade weich genug. Im Korb: Haselnusssträucher, kaum kniehoch, an den Wurzeln mit Trüffelpilz geimpft. Dazu Spaten, Pfähle, Vlies – und drei Männer, die vorher noch nie eine Trüffelplantage angelegt haben.",
+          "Loch graben, Strauch rein, Pfahl daneben, Erde fest, giessen. Klingt einfach, ist es auch – nur dass man bei jedem Strauch weiss, dass man ihn die nächsten Jahre wiedersehen wird. Am Schluss hat sich jeder einen ausgesucht. Seither ist es persönlich.",
+          "Ernte: frühestens in ein paar Jahren. Es gibt Projekte, bei denen man am Abend etwas in der Hand hat. Dieses ist keines davon. Genau deshalb.",
+        ],
+        images: [
+          {
+            src: "/images/projekte/trueffelplantage/2026-04-04-01.jpg",
+            caption: "Spaten, Pfähle, Vlies – und im Korb die Hauptdarsteller.",
+          },
+          {
+            src: "/images/projekte/trueffelplantage/2026-04-04-02.jpg",
+            caption: "Einer gräbt, einer hält, einer fotografiert.",
+          },
+          {
+            src: "/images/projekte/trueffelplantage/2026-04-04-03.jpg",
+            caption: "Der erste steht. Kniehoch, zwischen zwei Pfählen, mit Etikett.",
+          },
+          {
+            src: "/images/projekte/trueffelplantage/2026-04-04-04.jpg",
+            caption: "Drei Männer, eine Giesskanne, viel Zuversicht.",
+          },
+          {
+            src: "/images/projekte/trueffelplantage/2026-04-04-05.jpg",
+            caption: "Die ersten Blätter. Der Umzug ist gut gegangen.",
+          },
         ],
       },
     ],
   },
   {
     slug: "most",
-    title: "Der Most",
-    tagline: "Äpfel gelesen, traditionell gepresst",
-    status: "bald",
+    // Der Jahrgang im Titel: Der Most ist ein Produkt, und wenn es nächstes
+    // Jahr wieder einen gibt, heisst er „Most 2027" – so bleibt die Reihe lesbar.
+    title: "Most 2026",
+    tagline: "Von Hand gepresst, jetzt erhältlich",
+    status: "erhaeltlich",
     summary:
-      "Ein Wochenende in der Mosterei. Nach alter Art gepresst, bald im " +
-      "Verkauf – der Erlös geht in die Clubkasse.",
+      "Ein Tag in der Mosterei: vormittags Äpfel gelesen, nachmittags nach " +
+      "alter Art gepresst. Jetzt erhältlich – der Erlös geht in die Clubkasse.",
     hero: "/images/projekte/most/hero.jpg",
     intro:
       "Am Morgen auf der Wiese, am Nachmittag an der Presse. Ein Tag, an dem " +
       "niemand aufs Handy geschaut hat.",
     about: [
-      "Ein Wochenende in einer Mosterei: vormittags Äpfel gelesen, nachmittags nach alter Art gepresst – Handarbeit, bei der man sieht und riecht, was passiert. Am Abend stand da etwas, das vorher nicht existiert hat.",
+      "Ein Samstag in einer Mosterei: vormittags Äpfel gelesen, nachmittags nach alter Art gepresst – Handarbeit, bei der man sieht und riecht, was passiert. Am Abend stand da etwas, das vorher nicht existiert hat.",
       "Den Most verkaufen wir als Club, der Erlös fliesst in die Kasse und damit ins nächste Projekt. Und nebenbei: Wer stundenlang nebeneinander Äpfel schleppt, redet anders miteinander als am Tisch. Das war der eigentliche Grund.",
     ],
     facts: [
-      { label: "Machart", value: "Traditionell gepresst" },
+      { label: "Machart", value: "Von Hand gepresst" },
       { label: "Erlös", value: "Geht in die Clubkasse" },
     ],
+    // Preis und Gebinde stehen nur hier – ändert sich etwas, dann an dieser
+    // Stelle. Das Formular und die E-Mail rechnen nichts nach.
+    order: {
+      lede:
+        "Sag uns, wie viele du willst. Wir melden uns mit allem Weiteren – " +
+        "keine Vorauszahlung, kein Shop.",
+      facts: [
+        { label: "Gebinde", value: "5-Liter-Container" },
+        { label: "Preis", value: "20 Franken" },
+        { label: "Lieferung", value: "Nach Hause, wenn du in der Nähe wohnst" },
+      ],
+    },
     updates: [
       {
         // ENTWURF – bitte in eure Worte bringen. Das Bild ist das Original.
@@ -133,30 +266,70 @@ export const projects: Project[] = [
         title: "Abgefüllt",
         body: [
           "Etikett drauf, Kisten gepackt, zurück über die Kantonsgrenze. Der Most steht jetzt da, wo er hingehört – in Graubünden.",
-          "Was noch fehlt: der Weg zu euch. Bald.",
+          "Ab sofort erhältlich. Bestellen kannst du ihn oben auf dieser Seite.",
         ],
-        images: ["/images/projekte/most/2026-09-08-01.jpg"],
+        images: [
+          {
+            src: "/images/projekte/most/2026-09-08-01.jpg",
+            caption: "Zurück in Graubünden – die Kisten auf dem Steinbock.",
+          },
+        ],
       },
       {
         // Datum aus den Kameradaten der Fotos: Samstag, 5. September.
+        // ENTWURF – Texte und Bildunterschriften bitte in eure Worte bringen.
+        // Von den neun Fotos des Tages sind sechs hier; 04, 05 und 08 liegen
+        // weiterhin im Ordner, falls ihr tauschen wollt.
         date: "2026-09-05",
         title: "Ein Tag in der Mosterei",
         body: [
-          "Der Wecker war unangenehm früh, das Wetter unentschieden. Trotzdem standen alle da.",
-          "Äpfel lesen ist eine Arbeit, die niemanden beeindruckt und trotzdem gemacht werden muss. Nach zwei Stunden redet man anders miteinander als nach zwei Stunden am Tisch. Am Abend stand der Most da.",
+          "Ein Samstag im September, in zwei Hälften: vormittags auf der Wiese, nachmittags an der Presse.",
         ],
-        // Neun Bilder in der Reihenfolge des Tages: im Baum, Obstgarten, Kisten,
-        // Feldrand, Kofferraum, die Presse, Beladen, Most draussen, Most in Kisten.
-        images: [
-          "/images/projekte/most/2026-09-05-01.jpg",
-          "/images/projekte/most/2026-09-05-02.jpg",
-          "/images/projekte/most/2026-09-05-03.jpg",
-          "/images/projekte/most/2026-09-05-04.jpg",
-          "/images/projekte/most/2026-09-05-05.jpg",
-          "/images/projekte/most/2026-09-05-06.jpg",
-          "/images/projekte/most/2026-09-05-07.jpg",
-          "/images/projekte/most/2026-09-05-08.jpg",
-          "/images/projekte/most/2026-09-05-09.jpg",
+        images: [],
+        parts: [
+          {
+            title: "Vormittag – Äpfel lesen",
+            body: [
+              "Der Wecker war unangenehm früh, das Wetter unentschieden. Trotzdem standen alle da.",
+              "Äpfel lesen ist eine Arbeit, die niemanden beeindruckt: bücken, aufheben, Kiste füllen, nächste Kiste. Einer auf der Leiter, die anderen darunter. Nach zwei Stunden tut der Rücken weh – und trotzdem hat keiner aufgehört zu lachen. Ein richtiger Krampf, und genau deshalb hat es Spass gemacht.",
+            ],
+            images: [
+              {
+                src: "/images/projekte/most/2026-09-05-01.jpg",
+                caption: "Ganz oben hängen die besten – sagt der auf der Leiter.",
+              },
+              {
+                src: "/images/projekte/most/2026-09-05-02.jpg",
+                caption: "Der Obstgarten über der Stadt, der Himmel noch unentschieden.",
+              },
+              {
+                src: "/images/projekte/most/2026-09-05-03.jpg",
+                caption: "Kiste um Kiste. Was am Boden lag, kam auch mit.",
+              },
+            ],
+          },
+          {
+            title: "Nachmittag – an der Presse",
+            body: [
+              "Kofferraum voll, ab in die Mosterei. Die Äpfel werden gewaschen und gemahlen, die Maische kommt ins Tuch, Schicht um Schicht, dann drückt die Presse. Was unten herausläuft, ist erstaunlich viel – und schmeckt nach dem Vormittag.",
+              "Am Abend stand der Most da: in Beuteln, in Kisten, bereit für den Weg nach Graubünden.",
+              "Ein Dank an die Mosterei, die uns ihre Presse, ihren Platz und ihre Geduld überlassen hat. Ohne sie gäbe es diesen Most nicht.",
+            ],
+            images: [
+              {
+                src: "/images/projekte/most/2026-09-05-06.jpg",
+                caption: "Die Presse der Mosterei.",
+              },
+              {
+                src: "/images/projekte/most/2026-09-05-07.jpg",
+                caption: "Die Maische kommt ins Tuch, Schicht um Schicht.",
+              },
+              {
+                src: "/images/projekte/most/2026-09-05-09.jpg",
+                caption: "Am Abend: der Most, abgefüllt und kistenweise.",
+              },
+            ],
+          },
         ],
       },
     ],
@@ -219,15 +392,18 @@ export function formatDate(iso: string): string {
 export type UpdateWithProject = Update & { project: Project };
 
 /**
- * Die neuesten Updates über alle Projekte hinweg – für „Aktuelles" auf der
- * Projektübersicht. Solange es wenige gibt, zeigt die Seite eben wenige;
- * das ist ehrlicher als Füllmaterial.
+ * Das neueste Update über alle Projekte hinweg – für „Aktuelles" auf der
+ * Startseite und der Projektübersicht. Genau eines: Was zuletzt passiert
+ * ist, bekommt die ganze Bühne. Null, solange es noch kein Update gibt.
  */
-export function latestUpdates(limit = 3): UpdateWithProject[] {
-  return projects
-    .flatMap((project) => project.updates.map((update) => ({ ...update, project })))
-    .sort((a, b) => b.date.localeCompare(a.date))
-    .slice(0, limit);
+export function latestUpdate(): UpdateWithProject | null {
+  return (
+    projects
+      .flatMap((project) =>
+        project.updates.map((update) => ({ ...update, project })),
+      )
+      .sort((a, b) => b.date.localeCompare(a.date))[0] ?? null
+  );
 }
 
 /**

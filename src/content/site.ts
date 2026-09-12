@@ -26,14 +26,25 @@ export const socials: { name: "instagram" | "linkedin"; label: string; href: str
 ];
 
 /**
- * Hauptnavigation. Steht rechts im Header, das Logo links – auf dem Handy
- * als Vollflächen-Menü.
+ * Hauptnavigation. Steht links im Header, das Logo in der Mitte – auf dem
+ * Handy als Vollflächen-Menü.
  */
 export const navigation = [
   { href: "/club", label: "Der Club" },
   { href: "/projekte", label: "Projekte" },
   { href: "/kontakt", label: "Kontakt" },
 ] as const;
+
+/**
+ * Die Tür zum Mitgliederbereich – rechts im Header, als Knopf abgesetzt von
+ * der Navigation. Dahinter liegt die Anmeldung für Mitglieder und die
+ * Bewerbung für alle, die es werden wollen. Der geschützte Bereich selbst
+ * kommt später unter derselben Adresse dazu.
+ */
+export const memberArea = {
+  href: "/mitglieder",
+  label: "Mitgliederbereich",
+} as const;
 
 export const legalLinks = [
   { href: "/impressum", label: "Impressum" },

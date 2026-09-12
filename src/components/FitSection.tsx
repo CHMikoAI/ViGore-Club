@@ -14,6 +14,9 @@ import { fit } from "@/content/club";
  * Zwei Spalten nebeneinander, auf dem Handy untereinander. Die Überschriften
  * sitzen auf der Mittelachse, die Punkte selbst sind linksbündig –
  * Aufzählungen liest man am Rand, nicht mittig.
+ *
+ * Die Sprungmarke `fuer-wen` braucht das Bewerbungsformular: Dort bestätigt
+ * man, diesen Abschnitt gelesen zu haben, und der Link führt hierher.
  */
 export default function FitSection({ number }: { number?: string }) {
   const spalten = [
@@ -22,7 +25,7 @@ export default function FitSection({ number }: { number?: string }) {
   ];
 
   return (
-    <Section band="paper">
+    <Section band="paper" id="fuer-wen">
       <Container>
         <SectionHeader
           number={number}
