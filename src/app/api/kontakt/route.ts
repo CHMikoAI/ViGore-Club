@@ -55,6 +55,18 @@ function looksLikeEmail(value: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value);
 }
 
+/**
+ * Statusabruf: Ist der Mailversand eingerichtet? Zum Prüfen nach dem
+ * Deployment – /api/kontakt im Browser öffnen. Verrät nur ja oder nein,
+ * keine Schlüssel.
+ */
+export async function GET() {
+  const configured = Boolean(
+    process.env.RESEND_API_KEY && process.env.CONTACT_FROM,
+  );
+  return Response.json({ configured });
+}
+
 export async function POST(request: Request) {
   let payload: Payload;
   try {
